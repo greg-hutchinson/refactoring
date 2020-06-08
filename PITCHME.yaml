@@ -1,0 +1,37 @@
+# PITCHME-DOT-YAML-SETTINGS-THEME-BUILDER-GENERATED-START
+theme            : template
+theme-background : [ "#1A0420" ]
+theme-headline   : [ "Raleway", "#F2E3A1", "none", "#FFFFFF", "75", "120", "15" ]
+theme-byline     : [ "Raleway", "#FFFFFF", "none", "#F2E3A1", "75", "110", "15" ]
+theme-text       : [ "Ubuntu", "#FFFFFF", "none", "#C0C0C0", "100", "100", "15" ]
+theme-links      : [ "#E27924", "#FF851B" ]
+theme-code       : [ "Fira Code", "100", "120" ]
+theme-controls   : [ "#C0C0C0" ]
+theme-margins    : [ "0", "15px" ]
+logo             : assets/img/logo.jpg
+logo-position    : top-left
+layout           : top
+# PITCHME-DOT-YAML-SETTINGS-THEME-BUILDER-GENERATED-END
+
+theme-override: assets/css/PITCHME.css
+highlight        : solarized-light
+footnote : "Git"
+title : "Git and Gitkraken"
+
+mathjax : TeX-MML-AM_HTMLorMML-full
+charts: true
+
+#
+# Theme-Override Setting
+# Doc: https://gitpitch.com/docs/settings/custom-theme
+#
+#
+# Published Setting
+# Doc: https://gitpitch.com/docs/settings/published
+#
+#
+# Footnote Setting
+# Doc: https://gitpitch.com/docs/settings/footnote
+#
+# Doc: https://gitpitch.com/docs/settings/highlight
+#

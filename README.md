@@ -1,2 +1,2 @@
-# refactoring
-Gitpitch presentation on Refactoring
+# Refactoring
+GitPitch presentation on Refactoring

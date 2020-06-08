@@ -15,8 +15,8 @@ layout           : top
 
 theme-override: assets/css/PITCHME.css
 highlight        : solarized-light
-footnote : "Git"
-title : "Git and Gitkraken"
+footnote : "Refactoring"
+title : "Refactoring to Clean Code"
 
 mathjax : TeX-MML-AM_HTMLorMML-full
 charts: true

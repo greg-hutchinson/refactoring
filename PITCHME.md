@@ -1,10 +1,38 @@
-# Refactoring to Clean Code
+---?image=assets/img/refactoring-background.png
+
 ---
 ## Outline
+- Why Refactor
 - Definition of Clean Code
 - Alignment on Criteria
 - Definition of Refactoring
 - Different types of Refactorings
+
+---?image=assets/img/whyRefactor.jpg
+---
+## Why Refactor
+@snap[west span-45 text-center text-07]
+@box[bg-purple  text-left text-white] (Question)
+@box[bg-purple  text-left text-white] (Who are we refactoring for?)
+@box[bg-purple  text-left text-white] (With what intent?)
+@snapend
+
+---
+## Why Refactor
+@snap[west span-45 text-center text-07]
+@box[bg-purple  text-left text-white] (Question)
+@box[bg-purple  text-left text-white] (Who are we refactoring for?)
+@box[bg-purple  text-left text-white] (With what intent?)
+@snapend
+
+@snap[east span-45 text-center text-07]
+@box[bg-purple  text-left text-white] (Answer)
+@box[bg-purple  text-left text-white] (The reader of the code)
+@box[bg-purple  text-left text-white] (That it is easily understandable)
+@snapend
+
+
+
 
 ---
 ## Definition of Clean Code
@@ -49,13 +77,108 @@ Verb: to restructure software by applying a series of refactorings without chang
 
 ---
 
-## Code is easier to understand when ...
+### Code is easier to understand when we acknowledge the following...
 @snap[West text-06 text-left span-100 ]
 @ul[list-spaced-bullets]
 - Methods with fewer parameters are easier to understand than those with more parameters
-- Methods with less lines of code are easier to understand than Methods with more lines of code
+  - Niladic, monadic, dyadic, triadic, polyadic
+- Methods with less lines of code are easier to understand than methods with more lines of code
 - Methods with no conditional logic are easier to understand than methods with conditional logic
 - Methods with no loops are easier to understand than methods with loops
 - Methods that follow a naming pattern are easier to understand than ones that are unique (Example - getters)
 @ulend
+@snapend
+---
+
+## General Guidelines
+### Naming
+Use meaningful names for ***everything***.
+
+(Classes, Methods, Variables, Temporary Variables, Method Arguments, etc.)
+
+---
+### Naming - AntiPattern
+- txRt, dysYr, chsBrd
+---
+## Functions/Methods
+- Guideline: Should do one and only one thing
+- Guideline: Should contain the same level of abstraction
+
+---
+
+```java
+public void doSomething() {
+	initializeSomething();
+	for (int i = 0;i<7;i++)
+		if (i == 3)
+			if (get ....
+			else {....
+	}
+	cleanUpSomething();
+}
+```
+---
+
+```java
+public void doSomething() {
+	initializeSomething();
+	processSomething()
+	cleanUpSomething();
+}
+
+public void processSomething() {
+	for (int i = 0;i<7;i++)
+		if (i == 3)
+			if (get ....
+			else {....
+	}
+}
+```
+---
+## Function/Method size
+### Rule 1 - Small !!!
+
+- How many Lines of Code in a function?
+  - 10?
+  - Should fit easily on one screen
+
+---
+## Temporary Variables
+- Declare them just before they are needed. Minimize scope.
+- Helps to understand where the variable is being used.
+- Facilitates better refactoring
+
+Anti-pattern
+- Declare all variables at the top of the method giving method scope.
+
+---
+## Name some of the Common Refactorings
+
+---
+## Names of Common Refactorings
+- Rename (Class, File, Method, Variable)
+- Extract Method
+- Change Method Signature
+- Extract Class, Superclass, Interface
+- Pull Up, Push Down
+
+
+---
+## Refactoring - Extract Method
+- To turn part of a larger method into it's own method.
+- This is the most used refactoring tool
+- Keeps code at the same level of abstraction.
+- Use it everytime you feel like documenting the internals of a method (I.e
+
+//These next 5 lines calculate the net pay
+
+
+
+
+
+
+---
+## Comments
+@snap[west text-08 span-90]
+@quote[The proper use of comments is to compensate for our failure to express ourself in code](Robert Martin - Author "Clean Code")
 @snapend

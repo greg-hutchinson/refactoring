@@ -1,8 +1,8 @@
 package ca.attractors.chess;
 
-public class Rook extends ChessPiece {
+public class Pawn extends ChessPiece {
     Chessboard chessboard;
-    public Rook(Chessboard chessboard) {
+    public Pawn(Chessboard chessboard) {
         this.chessboard = chessboard;
     }
 }

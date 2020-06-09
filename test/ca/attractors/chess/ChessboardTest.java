@@ -7,22 +7,16 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ChessboardTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void move() {
-        Rook rook = new Rook();
         Chessboard chessboard = new Chessboard();
-        chessboard.move(rook, 'a',1);
-        Piece piece  = chessboard.getPieceAt('a', 1);
-        assertEquals(piece, rook);
+        Pawn pawn1  = (Pawn) chessboard.getPieceAt('a', 1);
+        assertNotNull(pawn1);
 
+        chessboard.move(pawn1, 'a',3);
+        assertNull (chessboard.getPieceAt('a', 1));
+
+        Pawn pawn2  = (Pawn) chessboard.getPieceAt('a', 3);
+        assertEquals(pawn1, pawn2);
     }
 }

@@ -2,14 +2,24 @@ package ca.attractors.chess;
 
 
 public class Chessboard {
-    ChessPiece [][] pieces = new ChessPiece[8][8];
+    private ChessPiece [][] pieces = new ChessPiece[8][8];
 
     public Chessboard() {
-        Pawn pawn = new Pawn(this, 0,1);
+        Pawn pawn = new Pawn(this);
         pieces[0][1] = pawn;
     }
 
-    public ChessPiece getPieceAt(int x, int y) {
-        return pieces[x] [y];
+    public ChessPiece getPieceAt(Position position) {
+        return pieces[position.getXOffset()] [position.getYOffset()];
+    }
+
+    public Position getPositionOf(ChessPiece pawn) {
+        for (Position position: Position.values()) {
+            ChessPiece piece = getPieceAt(position);
+            if (piece == pawn) {
+                return position;
+            }
+        }
+        throw new UnsupportedOperationException("This piece is not found on this chessboard");
     }
 }

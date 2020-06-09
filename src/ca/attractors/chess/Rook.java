@@ -1,8 +1,8 @@
 package ca.attractors.chess;
 
 public class Rook extends ChessPiece {
-    Chessboard chessboard;
-    public Rook(Chessboard chessboard) {
-        this.chessboard = chessboard;
+
+    public Rook(Chessboard chessboard, Color color) {
+        super(chessboard, color);
     }
 }

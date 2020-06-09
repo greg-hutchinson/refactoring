@@ -1,12 +1,14 @@
 package ca.attractors.chess;
 
+import static ca.attractors.chess.Color.White;
+
 public class Chessboard {
     ChessPiece [][] pieces = new ChessPiece[8][8];
 
     public Chessboard() {
-        Rook rook = new Rook(this);
+        Rook rook = new Rook(this, White);
         pieces[0][0] = rook;
-        Pawn pawn = new Pawn(this);
+        Pawn pawn = new Pawn(this, White);
         pieces[0][1] = pawn;
     }
 

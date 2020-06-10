@@ -56,6 +56,53 @@
 @quote[You know you are working on clean code when each routine you read turns out to be pretty much what you expected. You can call it beautiful code when the code also makes it look like the language was made for the problem.](Ward Cunningham - Inventor of Wiki, Coinventor of eXtreme Programming)
 @snapend
 ---
+# What does Ward Mean?
+Assume we have a BlackjackHand and we need to know if this hand is a "Blackjack" because it pays 3:2
+A blackJack is when there is only 2 cards and they are an ace and a face card (total of 21)
+---
+```Java
+public boolean isBlackJack() {
+    if (getNumberOfCards() == 2)
+        return false;
+    int value = 0;
+    for (Card card : cards) {
+        int temp = card.getIntValue();
+        if (card.isFace())
+            temp = 10;
+        if (card.isAce())
+            temp =  11;
+        value += temp;
+    }
+    return value == 21;
+}
+```
+---
+```Java
+public boolean isBlackJack() {
+    if (cards.size() != 2)
+        return false;
+    Card card1 = cards.get(0);
+    Card card2 = cards.get(1);
+    if (card1.getIntValue() == 1)  //Ace
+        if (card2.getIntValue() >= 10) {  //10,11,12,13 Ten thru King
+            return true;
+        }
+    if ((card1.getIntValue() >= 10) && (card2.getIntValue() == 1))
+        return true;
+    return false;
+}
+```
+---
+```Java
+// You can call it beautiful code when the code also
+// makes it look like the language was made for the problem.
+
+public boolean isBlackJack() {
+    return getNumberOfCards() == 2 && getTotal() == 21;
+}
+```
+
+---
 ## Definition of Clean Code
 @img[south-east span-40](assets/img/greg-hutchinson.png)
 @snap[west text-07 span-50]
@@ -77,7 +124,7 @@ Verb: to restructure software by applying a series of refactorings without chang
 
 ---
 
-### Code is easier to understand when we acknowledge the following...
+#### The goal of refactoring is easier to understand when we acknowledge the following...
 @snap[West text-06 text-left span-100 ]
 @ul[list-spaced-bullets]
 - Methods with fewer parameters are easier to understand than those with more parameters

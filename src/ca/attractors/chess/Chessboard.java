@@ -16,7 +16,7 @@ public class Chessboard {
     public Position getPositionOf(ChessPiece pawn) {
         for (Position position: Position.values()) {
             ChessPiece piece = getPieceAt(position);
-            if (piece == pawn) {
+            if (piece == pawn) {    //Refactor - inline variable - remove braces?
                 return position;
             }
         }

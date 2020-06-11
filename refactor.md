@@ -6,3 +6,5 @@ Now that it has been refactored.
 - No duplication of coordinates.
 - Subscripting is natural.
 - Side effect is that the code is a lot terser.
+
+---

@@ -5,12 +5,18 @@ public class Chessboard {
     private ChessPiece[][] pieces = new ChessPiece[8][8];
 
     public Chessboard() {
+    }
+
+    public void initializeChessBoard() {
         Pawn pawn = new Pawn(this);
         pieces[0][1] = pawn;
     }
-
     public ChessPiece getPieceAt(Position position) {
         return pieces[position.getXOffset()] [position.getYOffset()];
+    }
+
+    void putPieceAt(ChessPiece chessPiece, Position position) {
+        pieces[position.getXOffset()][position.getYOffset()] = chessPiece;
     }
 
     public Position getPositionOf(ChessPiece pawn) {

@@ -17,9 +17,9 @@ public class PawnTest {
 
     @Test
     void construction() {
+        chessboard.initializeChessBoard();
         Pawn pawn1  = (Pawn) chessboard.getPieceAt(A2);
         assertEquals(A2, pawn1.getPosition());
     }
-
 
 }

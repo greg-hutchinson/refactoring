@@ -10,6 +10,7 @@ public class ChessboardTest {
     @Test
     void construction() {
         Chessboard chessboard = new Chessboard();
+        chessboard.initializeChessBoard();
         Pawn pawn1  = (Pawn) chessboard.getPieceAt(A2);
         assertEquals(A2, pawn1.getPosition());
     }

@@ -19,6 +19,12 @@ public class Chessboard {
         pieces[position.getXOffset()][position.getYOffset()] = chessPiece;
     }
 
+    void movePieceTo(ChessPiece chessPiece, Position position) {
+        Position old = chessPiece.getPosition();
+        putPieceAt(chessPiece, position);
+        pieces[old.getXOffset()][old.getYOffset()] = null;
+    }
+
     public Position getPositionOf(ChessPiece pawn) {
         for (Position position: Position.values()) {
             ChessPiece piece = getPieceAt(position);

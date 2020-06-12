@@ -5,30 +5,52 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static ca.attractors.chess.Position.*;
+import static ca.attractors.chess.PieceColor.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RookTest {
     private Chessboard chessboard;
+    private Rook rook;
 
     @BeforeEach
     void initialize() {
         chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook, D4);
     }
 
     @Test
-    void move() {
-        Rook rook  = new Rook(chessboard);
-        chessboard.putPieceAt(rook, A1);
+    void moveToNonHorizontalOrVerticalSpot() {
         assertFalse(rook.moveTo(B2));
-        assertTrue(rook.moveTo(A3));
-        assertTrue(rook.getPosition()== A3);
-        assertTrue(rook.moveTo(A1));
+    }
+    @Test
+    void moveToOccupiedCellOfSameColor() {
+        Rook rook2 = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook2, D3);
+        assertFalse(rook.moveTo(D3));
+    }
 
-        Pawn pawn  = new Pawn(chessboard);
-        chessboard.putPieceAt(pawn, A1);
+    @Test
+    void moveToOccupiedCellOfDifferentColor() {
+        Rook rook2 = new Rook(chessboard, Black);
+        chessboard.putPieceAt(rook2, D1);
+        assertTrue(rook.moveTo(D1));
+        assertSame(rook.getPosition(), D1);
+        assertNull (chessboard.getPieceAt(D4));
+    }
 
-
+    @Test
+    void moveVerticallyWithUnoccupiedCells() {
+        assertTrue(rook.moveTo(D8));
+        assertSame(rook.getPosition(), D8);
     }
 
 
+    @Test
+    void moveVerticallyToCellWithOccupiedCellsInBetween() {
+        Rook rook2 = new Rook(chessboard, Black);
+        chessboard.putPieceAt(rook2, D7);
+        assertFalse(rook.moveTo(D8));
+    }
 }

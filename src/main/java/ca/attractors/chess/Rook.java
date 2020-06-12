@@ -4,38 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rook extends ChessPiece {
-    protected Rook(Chessboard chessboard) {
-        super(chessboard);
+    protected Rook(Chessboard chessboard, PieceColor color) {
+        super(chessboard, color);
     }
-    public boolean moveTo(Position position) {
+
+    public boolean moveTo(Position targetPosition) {
         Position currentPosition = getPosition();
         //same row or same column?
-        if (position.x != currentPosition.x && position.y != currentPosition.y) {
+        if (targetPosition.x != currentPosition.x && targetPosition.y != currentPosition.y) {
             return false;
         }
-        ChessPiece targetPiece = getChessboard().getPieceAt(position);
+        ChessPiece targetPiece = getChessboard().getPieceAt(targetPosition);
         if (targetPiece != null) {
-            if (targetPiece.)
+            if (targetPiece.getColor() == getColor())
+                return false;
         }
-        if (position.x == currentPosition.x) {
-            int start = position.getXOffset();
-            int end = current.getXOffset();
-            int increment = 1;
+        if (targetPosition.x == currentPosition.x) {
+            int start = currentPosition.getYOffset();
+            int end = targetPosition.getYOffset();
+            int increment = 0;
             if (start > end)
                 increment = -1;
+            else
+                increment = 1;
             List<Position> positions = new ArrayList<>();
-            for (int x = start; x != end; x = x + increment) {
-                if (x != start && x != end)
-                    positions.add(Position.getPositionFor(x, position.getYOffset()));
+            for (int y = start; y != end; y = y + increment) {
+                if (y != start && y != end)    //Code coverage should spot something here
+                    positions.add(Position.getPositionFor(targetPosition.getXOffset(), y));
             }
-            for (Position position: Position.values()) {
+            for (Position position: positions) {
                 if (getChessboard().getPieceAt(position) != null) {
                     return false;
                 }
             }
-
         }
-
+        getChessboard().movePieceTo(this, targetPosition);
         return true;
     }
 

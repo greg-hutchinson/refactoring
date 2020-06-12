@@ -45,12 +45,25 @@ public class RookTest {
         assertTrue(rook.moveTo(D8));
         assertSame(rook.getPosition(), D8);
     }
-
-
     @Test
     void moveVerticallyToCellWithOccupiedCellsInBetween() {
         Rook rook2 = new Rook(chessboard, Black);
         chessboard.putPieceAt(rook2, D7);
         assertFalse(rook.moveTo(D8));
     }
+
+    @Test
+    void moveHorizontallyWithUnoccupiedCells() {
+        assertTrue(rook.moveTo(A4));
+        assertSame(rook.getPosition(), A4);
+    }
+
+
+    @Test
+    void moveHorizontallyToCellWithOccupiedCellsInBetween() {
+        Rook rook2 = new Rook(chessboard, Black);
+        chessboard.putPieceAt(rook2, C4);
+        assertFalse(rook.moveTo(A4));
+    }
+
 }

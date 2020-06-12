@@ -8,14 +8,7 @@ public class Rook extends ChessPiece {
         super(chessboard, color);
     }
 
-    public boolean moveTo(Position targetPosition) {
-        if (isInvalidMoveTo(targetPosition))
-            return false;
-        getChessboard().movePieceTo(this, targetPosition);
-        return true;
-    }
-
-    private boolean isInvalidMoveTo(Position targetPosition) {
+    protected boolean isInvalidMoveTo(Position targetPosition) {
         if (isInvalidTarget(targetPosition)) return true;
         if (isInvalidVerticalMove(targetPosition)) return true;
         if (isInvalidHorizontalMove(targetPosition)) return true;

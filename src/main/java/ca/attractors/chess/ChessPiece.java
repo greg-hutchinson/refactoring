@@ -1,6 +1,6 @@
 package ca.attractors.chess;
 
-public class ChessPiece {
+public abstract  class ChessPiece {
     private Chessboard chessboard;
     private PieceColor color;
 
@@ -20,4 +20,13 @@ public class ChessPiece {
     public PieceColor getColor() {
         return color;
     }
+
+    public boolean moveTo(Position targetPosition) {
+        if (isInvalidMoveTo(targetPosition))
+            return false;
+        getChessboard().movePieceTo(this, targetPosition);
+        return true;
+    }
+
+    protected abstract boolean isInvalidMoveTo(Position targetPosition);
 }

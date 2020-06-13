@@ -1,6 +1,8 @@
 package ca.attractors.chess;
 
 
+import static ca.attractors.chess.PieceColor.White;
+
 public class Chessboard {
     private ChessPiece[][] pieces = new ChessPiece[8][8];
 
@@ -8,7 +10,7 @@ public class Chessboard {
     }
 
     public void initializeChessBoard() {
-        Pawn pawn = new Pawn(this);
+        Pawn pawn = new Pawn(this, White);
         pieces[0][1] = pawn;
     }
     public ChessPiece getPieceAt(Position position) {

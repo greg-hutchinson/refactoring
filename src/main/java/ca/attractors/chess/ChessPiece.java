@@ -21,12 +21,4 @@ public abstract  class ChessPiece {
         return color;
     }
 
-    public boolean moveTo(Position targetPosition) {
-        if (isInvalidMoveTo(targetPosition))
-            return false;
-        getChessboard().movePieceTo(this, targetPosition);
-        return true;
-    }
-
-    protected abstract boolean isInvalidMoveTo(Position targetPosition);
 }

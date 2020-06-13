@@ -6,4 +6,8 @@ public class Bishop extends ChessPiece {
         super(chessboard, PieceColor.White);
     }
 
+    @Override
+    protected boolean isInvalidMoveTo(Position targetPosition) {
+        return false;
+    }
 }

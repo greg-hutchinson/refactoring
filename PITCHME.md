@@ -56,13 +56,14 @@
 @quote[You know you are working on clean code when each routine you read turns out to be pretty much what you expected. You can call it beautiful code when the code also makes it look like the language was made for the problem.](Ward Cunningham - Inventor of Wiki, Coinventor of eXtreme Programming)
 @snapend
 ---
-# What does Ward Mean?
-Assume we have a BlackjackHand and we need to know if this hand is a "Blackjack" because it pays 3:2
+## What does Ward Mean?
+Assume we are writing a Blackjack playing application. We have designed a class called BlackjackHand which will evaluate what the total
+of the current cards in the hand are. It also needs to know if the current cards in the hand consistute a "Blackjack" since a "Blackjack" pays 3:2.
 A blackJack is when there is only 2 cards and they are an ace and a face card (total of 21)
 ---
 ```Java
 public boolean isBlackJack() {
-    if (getNumberOfCards() == 2)
+    if (cards.size() == 2)
         return false;
     int value = 0;
     for (Card card : cards) {
@@ -75,6 +76,7 @@ public boolean isBlackJack() {
     }
     return value == 21;
 }
+@[3](short-circuit whenever possible)
 ```
 ---
 ```Java
@@ -147,10 +149,9 @@ Use meaningful names for ***everything***.
 ### Naming - AntiPattern
 - txRt, dysYr, chsBrd
 ---
-## Functions/Methods
-- Guideline: Should do one and only one thing
-- Guideline: Should contain the same level of abstraction
-
+## Functions/Methods (Guideline)
+- Should do one and only one thing
+- Should contain the same level of abstraction
 ---
 
 ```java
@@ -164,6 +165,7 @@ public void doSomething() {
 	cleanUpSomething();
 }
 ```
+@[3-7](Different level of abstraction)
 ---
 
 ```java
@@ -237,28 +239,33 @@ Anti-pattern
 @snapend
 
 ---
-@snap[north-east span-100 text-06 text-gray]
-    Test cases as a Design Tool
+@snap[north-east span-20 text-06  text-left text-yellow]
+Test cases as a Design Tool
 @snapend
+@snap[north-west span-80]
 ```java
 public class RookTest {
     @BeforeEach
     void initialize() {
         chessboard = new Chessboard();
         rook  = new Rook(chessboard, White);
-        chessboard.putPieceAt(rook, 0,0);
+        chessboard.putPieceAt(rook, 1,1);
     }
     @Test
     void moveToNonHorizontalOrVerticalSpot() {
-        assertFalse(rook.moveTo(1,1));
+        assertFalse(rook.moveTo(2,2));
     }
-    //Something feels weird - code smells
 ```
-@[1](Where is 0,0?)
-@[11]
+@[6](Something feels weird - code smells)
+@snapend
 
----?image=assets/img/chessboard.png
 ---
+@img[north span-65](assets/img/chessboard.png)
+---
+@snap[north-east span-20 text-06  text-left text-yellow]
+Use "Domain Language" whenever possible
+@snapend
+@snap[north-west span-80]
 ```java
 public class RookTest {
     @BeforeEach
@@ -269,9 +276,33 @@ public class RookTest {
     }
     @Test
     void moveToNonHorizontalOrVerticalSpot() {
-        assertFalse(rook.moveTo('b',2));
+        assertFalse(rook.moveTo('b',9));
     }
-    //Definitely better - any other downsides?
-
 ```
+@[6](Definitely better - any downsides?)
+@[10](Need to check for IllegalArguments)
+@snapend
+
+---
+@snap[north-east span-20 text-06  text-left text-yellow]
+Use "Domain Language" whenever possible
+@snapend
+@snap[north-west span-80]
+```java
+public class RookTest {
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook, A1);
+    }
+    @Test
+    void moveToNonHorizontalOrVerticalSpot() {
+        assertFalse(rook.moveTo(C3));
+    }
+```
+@[6](How would this be possible?)
+@[10](Compiler enforced values)
+@[10](And we have captured the concept of a "Position" in one argument)
+@snapend
 

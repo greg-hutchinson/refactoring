@@ -220,12 +220,58 @@ Anti-pattern
 //These next 5 lines calculate the net pay
 
 
-
-
-
-
 ---
 ## Comments
 @snap[west text-08 span-90]
 @quote[The proper use of comments is to compensate for our failure to express ourself in code](Robert Martin - Author "Clean Code")
 @snapend
+
+---
+## Unit Tests
+@snap[West text-06 text-left span-100 ]
+@ul[list-spaced-bullets]
+- To help ensure the system works
+- Documentation on how to use the API
+- Design tool
+@ulend
+@snapend
+
+---
+@snap[north-east span-100 text-06 text-gray]
+    Test cases as a Design Tool
+@snapend
+```java
+public class RookTest {
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook, 0,0);
+    }
+    @Test
+    void moveToNonHorizontalOrVerticalSpot() {
+        assertFalse(rook.moveTo(1,1));
+    }
+    //Something feels weird - code smells
+```
+@[1](Where is 0,0?)
+@[11]
+
+---?image=assets/img/chessboard.png
+---
+```java
+public class RookTest {
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook, 'a',1);
+    }
+    @Test
+    void moveToNonHorizontalOrVerticalSpot() {
+        assertFalse(rook.moveTo('b',2));
+    }
+    //Definitely better - any other downsides?
+
+```
+

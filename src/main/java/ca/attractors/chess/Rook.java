@@ -8,31 +8,14 @@ public class Rook extends ChessPiece {
         super(chessboard, color);
     }
 
-    public boolean moveTo(Position targetPosition) {
-        if (isOccupiedBySameColorPiece(targetPosition))
-            return true;
-        if (isInvalidMoveTo(targetPosition))
-            return false;
-        getChessboard().movePieceTo(this, targetPosition);
-        return true;
-    }
 
-
+    @Override
     protected boolean isInvalidMoveTo(Position targetPosition) {
         if (targetPosition.x != getPosition().x && targetPosition.y != getPosition().y) {
             return true;
         }
         if (isInvalidVerticalMove(targetPosition)) return true;
         if (isInvalidHorizontalMove(targetPosition)) return true;
-        return false;
-    }
-
-    protected boolean isOccupiedBySameColorPiece(Position targetPosition) {
-        ChessPiece targetPiece = getChessboard().getPieceAt(targetPosition);
-        if (targetPiece != null) {
-            if (targetPiece.getColor() == getColor())
-                return true;
-        }
         return false;
     }
 

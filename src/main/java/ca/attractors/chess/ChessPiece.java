@@ -29,14 +29,15 @@ public abstract  class ChessPiece {
     }
 
     private boolean cantMoveTo(Position targetPosition) {
+        Move move = new Move(getPosition(), targetPosition, chessboard);
         if (isOccupiedBySameColorPiece(targetPosition))
             return true;
-        if (isInvalidMoveTo(targetPosition))
+        if (isInvalidMove(move))
             return true;
         return false;
     }
 
-    protected abstract boolean isInvalidMoveTo(Position targetPosition);
+    protected abstract boolean isInvalidMove(Move move);
 
     private boolean isOccupiedBySameColorPiece(Position targetPosition) {
         ChessPiece targetPiece = getChessboard().getPieceAt(targetPosition);

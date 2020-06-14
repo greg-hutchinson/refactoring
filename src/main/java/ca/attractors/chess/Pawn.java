@@ -7,7 +7,8 @@ public class Pawn extends ChessPiece {
 
 
     @Override
-    protected boolean isInvalidMoveTo(Position targetPosition) {
+    protected boolean isInvalidMove(Move move) {
+
         return false;
     }
 }

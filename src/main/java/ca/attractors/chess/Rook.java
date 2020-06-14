@@ -11,12 +11,23 @@ public class Rook extends ChessPiece {
 
     @Override
     protected boolean isInvalidMoveTo(Position targetPosition) {
-        if (targetPosition.x != getPosition().x && targetPosition.y != getPosition().y) {
+        if (! isRooksMove(targetPosition))
             return true;
-        }
         if (isInvalidVerticalMove(targetPosition)) return true;
         if (isInvalidHorizontalMove(targetPosition)) return true;
         return false;
+    }
+
+    private boolean isRooksMove(Position targetPosition) {
+        return isHorizontal(targetPosition) || isVertical(targetPosition);
+    }
+
+    private boolean isVertical(Position targetPosition) {
+        return targetPosition.y == getPosition().y;
+    }
+
+    private boolean isHorizontal(Position targetPosition) {
+        return targetPosition.x == getPosition().x;
     }
 
     private boolean isInvalidHorizontalMove(Position targetPosition) {

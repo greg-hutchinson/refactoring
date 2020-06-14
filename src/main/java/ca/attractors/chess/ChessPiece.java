@@ -22,17 +22,23 @@ public abstract  class ChessPiece {
     }
 
     public boolean moveTo(Position targetPosition) {
-        if (isOccupiedBySameColorPiece(targetPosition))
-            return false;
-        if (isInvalidMoveTo(targetPosition))
+        if (cantMoveTo(targetPosition))
             return false;
         getChessboard().movePieceTo(this, targetPosition);
         return true;
     }
 
+    private boolean cantMoveTo(Position targetPosition) {
+        if (isOccupiedBySameColorPiece(targetPosition))
+            return true;
+        if (isInvalidMoveTo(targetPosition))
+            return true;
+        return false;
+    }
+
     protected abstract boolean isInvalidMoveTo(Position targetPosition);
 
-    protected boolean isOccupiedBySameColorPiece(Position targetPosition) {
+    private boolean isOccupiedBySameColorPiece(Position targetPosition) {
         ChessPiece targetPiece = getChessboard().getPieceAt(targetPosition);
         if (targetPiece != null) {
             if (targetPiece.getColor() == getColor())

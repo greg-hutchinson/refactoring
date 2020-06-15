@@ -22,29 +22,26 @@ public abstract  class ChessPiece {
     }
 
     public boolean moveTo(Position targetPosition) {
-        if (cantMoveTo(targetPosition))
+        Move move = new Move(getPosition(), targetPosition, chessboard);
+        if (!canMove(move))
             return false;
         getChessboard().movePieceTo(this, targetPosition);
         return true;
     }
 
-    private boolean cantMoveTo(Position targetPosition) {
-        Move move = new Move(getPosition(), targetPosition, chessboard);
-        if (isOccupiedBySameColorPiece(targetPosition))
-            return true;
-        if (isInvalidMove(move))
-            return true;
-        return false;
+    private boolean canMove(Move move) {
+        if (move.isOccupiedBySameColor())
+            return false;
+        return isValidMove(move);
     }
 
-    protected abstract boolean isInvalidMove(Move move);
+    protected abstract boolean isValidMove(Move move);
 
-    private boolean isOccupiedBySameColorPiece(Position targetPosition) {
-        ChessPiece targetPiece = getChessboard().getPieceAt(targetPosition);
-        if (targetPiece != null) {
-            if (targetPiece.getColor() == getColor())
-                return true;
-        }
-        return false;
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
+    @Override
+    public String toString() {
+        return getName() + "{" + getColor() + " at: " + getPosition() +"}";
     }
 }

@@ -9,9 +9,9 @@ public class Rook extends ChessPiece {
     }
 
     @Override
-    protected boolean isInvalidMove(Move move) {
+    protected boolean isValidMove(Move move) {
         if (!(move.isVertical() || move.isHorizontal()))
-            return true;
-        return move.isPathBlocked();
+            return false;
+        return move.isPathUnoccupied();
     }
 }

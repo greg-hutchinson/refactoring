@@ -10,9 +10,9 @@ public class Bishop extends ChessPiece {
     }
 
     @Override
-    protected boolean isInvalidMove(Move move) {
+    protected boolean isValidMove(Move move) {
         if (!(move.isDiagonal()))
-            return true;
-        return move.isPathBlocked();
+            return false;
+        return move.isPathUnoccupied();
     }
 }

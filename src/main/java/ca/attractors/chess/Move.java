@@ -96,6 +96,10 @@ public class Move {
         return diffx == diffy;
     }
 
+    public boolean isPathUnoccupied() {
+        return !isPathBlocked();
+
+    }
     public boolean isPathBlocked() {
         if (!isLine())
             throw new IllegalStateException("Can't invoke isBlocked if the move is not a line.");
@@ -106,4 +110,13 @@ public class Move {
         }
         return false;
     }
+
+    public boolean isOccupiedBySameColor() {
+        ChessPiece targetPiece = chessboard.getPieceAt(target);
+        if (targetPiece == null)
+            return false;
+        ChessPiece sourcePiece = chessboard.getPieceAt(source);
+        return sourcePiece.getColor() == targetPiece.getColor();
+    }
+
 }

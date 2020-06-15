@@ -57,26 +57,30 @@
 @snapend
 ---
 ## What does Ward Mean?
-Assume we are writing a Blackjack playing application. We have designed a class called BlackjackHand which will evaluate what the total
-of the current cards in the hand are. It also needs to know if the current cards in the hand consistute a "Blackjack" since a "Blackjack" pays 3:2.
-A blackJack is when there is only 2 cards and they are an ace and a face card (total of 21)
+@snap[west text-07 span-90]
+- Assume we are writing a Blackjack playing application.
+- We have designed a class called BlackjackHand which will evaluate what the total of the current cards in the hand are.
+- It also needs to know if the current cards in the hand consistute a "Blackjack" since a "Blackjack" pays 3:2.
+- A blackJack is when there is only 2 cards and the total is 21 (Ace and a Face card)
+@snapend
 ---
 ```Java
 public boolean isBlackJack() {
-    if (cards.size() == 2)
-        return false;
-    int value = 0;
-    for (Card card : cards) {
-        int temp = card.getIntValue();
-        if (card.isFace())
-            temp = 10;
-        if (card.isAce())
-            temp =  11;
-        value += temp;
+    if (cards.size() == 2) {
+        int value = 0;
+        for (Card card : cards) {
+            int temp = card.getIntValue();
+            if (temp >= 10)   //10, J, Q, K
+                temp = 10;
+            if (temp == 1)   //Ace
+                temp =  11;
+            value += temp;
+        }
+        return value == 21;
     }
-    return value == 21;
+    else 
+        return false;
 }
-@[3](short-circuit whenever possible)
 ```
 ---
 ```Java
@@ -85,19 +89,22 @@ public boolean isBlackJack() {
         return false;
     Card card1 = cards.get(0);
     Card card2 = cards.get(1);
-    if (card1.getIntValue() == 1)  //Ace
-        if (card2.getIntValue() >= 10) {  //10,11,12,13 Ten thru King
+    if (card1.isAce() == 1)  
+        if (card2.isFace()) { 
             return true;
         }
-    if ((card1.getIntValue() >= 10) && (card2.getIntValue() == 1))
+    if ((card1.isFace()) && (card2.isAce()))
         return true;
     return false;
 }
 ```
+@[2-3](short-circuit whenever possible<br> as it removes one level of indentation)
 ---
 ```Java
 // You can call it beautiful code when the code also
 // makes it look like the language was made for the problem.
+// I.e. A blackJack is when there is
+// only 2 cards and when the total is 21
 
 public boolean isBlackJack() {
     return getNumberOfCards() == 2 && getTotal() == 21;
@@ -183,6 +190,7 @@ public void processSomething() {
 	}
 }
 ```
+@[2-4, 8-11](Same level of abstraction)
 ---
 ## Function/Method size
 ### Rule 1 - Small !!!
@@ -190,16 +198,22 @@ public void processSomething() {
 - How many Lines of Code in a function?
   - 10?
   - Should fit easily on one screen
+  - Horizontal scrolling is not allowed
 
 ---
-## Temporary Variables
-- Declare them just before they are needed. Minimize scope.
-- Helps to understand where the variable is being used.
-- Facilitates better refactoring
+@snap[north span-80 text-left text-07]
+@box[bg-purple  text-left text-white] (Temporary Variables)
+@box[bg-purple  text-left text-white] (Declare them just before they are needed. Minimize scope.)
+@box[bg-purple  text-left text-white] (Helps to understand where the variable is being used.)
+@box[bg-purple  text-left text-white] (Facilitates better Refactoring)
+@snapend
 
-Anti-pattern
-- Declare all variables at the top of the method giving method scope.
-
+@snap[midpoint text-06 text-left span-80 ]
+<br>
+<br>
+@box[bg-purple  text-left text-white] (Anti Pattern)
+@box[bg-purple  text-left text-white] (Declare all variables at the top of the method giving method scope)
+@snapend
 ---
 ## Name some of the Common Refactorings
 
@@ -211,7 +225,6 @@ Anti-pattern
 - Extract Class, Superclass, Interface
 - Pull Up, Push Down
 
-
 ---
 ## Refactoring - Extract Method
 - To turn part of a larger method into it's own method.
@@ -220,14 +233,49 @@ Anti-pattern
 - Use it everytime you feel like documenting the internals of a method (I.e
 
 //These next 5 lines calculate the net pay
+---
+## Candidates for Extract Method
+- if then else statements
+- Loops
+- Loop bodies (streams tend to invalidate this statement)
 
+---
+```java
+    public double getAmount() {
+	    // Some code here calculate base and other stuff.
+        // ...
+	    double premium;
+	    if (age < 16)
+	        premium = 1.5;
+	    else 
+	        premium = 1.0
+	    return premium * base;
+}
 
+```
+@[5-8](Make getter)
+---
+---
+```java
+    public double getAmount() {
+	    // Some code here calculate other stuff.
+        // ...
+	    double premium = getPremium();
+	    return premium * base;
+    }
+
+    private double getPremium() {
+        if (age < 16)
+	        return 1.5;
+        return premium = 1.0;
+    }
+```
+@[9-11](Note: no else)
 ---
 ## Comments
 @snap[west text-08 span-90]
 @quote[The proper use of comments is to compensate for our failure to express ourself in code](Robert Martin - Author "Clean Code")
 @snapend
-
 ---
 ## Unit Tests
 @snap[West text-06 text-left span-100 ]
@@ -239,10 +287,10 @@ Anti-pattern
 @snapend
 
 ---
-@snap[north-east span-20 text-06  text-left text-yellow]
-Test cases as a Design Tool
+@snap[north-east span-25 text-05  text-left text-yellow]
+Why does this "Smell"?
 @snapend
-@snap[north-west span-80]
+@snap[north-west span-75]
 ```java
 public class RookTest {
     @BeforeEach
@@ -252,20 +300,20 @@ public class RookTest {
         chessboard.putPieceAt(rook, 1,1);
     }
     @Test
-    void moveToNonHorizontalOrVerticalSpot() {
+    void moveToNonHorizontalOrNonVerticalSpot() {
         assertFalse(rook.moveTo(2,2));
     }
 ```
-@[6](Something feels weird - code smells)
+@[6](Mental Gymnastics - where is this on the board?)
 @snapend
 
 ---
 @img[north span-65](assets/img/chessboard.png)
 ---
-@snap[north-east span-20 text-06  text-left text-yellow]
+@snap[north-east span-25 text-05  text-left text-yellow]
 Use "Domain Language" whenever possible
 @snapend
-@snap[north-west span-80]
+@snap[north-west span-75]
 ```java
 public class RookTest {
     @BeforeEach
@@ -284,10 +332,10 @@ public class RookTest {
 @snapend
 
 ---
-@snap[north-east span-20 text-06  text-left text-yellow]
+@snap[north-east span-25 text-05  text-left text-yellow]
 Use "Domain Language" whenever possible
 @snapend
-@snap[north-west span-80]
+@snap[north-west span-75]
 ```java
 public class RookTest {
     @BeforeEach

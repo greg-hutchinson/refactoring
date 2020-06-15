@@ -8,6 +8,7 @@ public class Rook extends ChessPiece {
         super(chessboard, color);
     }
 
+    //FIXME, This method works but seems to violate lots of rules.
     public boolean moveTo(Position targetPosition) {
         Position currentPosition = getPosition();
         //same row or same column?

@@ -6,4 +6,7 @@ public class Bishop extends ChessPiece {
         super(chessboard, PieceColor.White);
     }
 
+    public boolean moveTo(Position b1) {
+        return false;
+    }
 }

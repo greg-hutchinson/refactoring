@@ -11,4 +11,9 @@ public class Bishop extends ChessPiece {
         return chessboard.getPositionOf(this);
     }
 
+    public boolean moveTo(Position position) {
+        return false;
+    }
+
+
 }

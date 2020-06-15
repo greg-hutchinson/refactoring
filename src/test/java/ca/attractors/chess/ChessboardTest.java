@@ -2,15 +2,19 @@ package ca.attractors.chess;
 
 import org.junit.jupiter.api.Test;
 
-import static ca.attractors.chess.Position.A2;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static ca.attractors.chess.Position.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 
 public class ChessboardTest {
     @Test
-    void construction() {
+    void movePieceTo() {
         Chessboard chessboard = new Chessboard();
-        Pawn pawn1  = (Pawn) chessboard.getPieceAt(A2);
-        assertEquals(A2, pawn1.getPosition());
+        Rook rook = new Rook(chessboard);
+        chessboard.putPieceAt(rook, A1);
+        chessboard.movePieceTo(rook, A5);
+        assertSame(rook, chessboard.getPieceAt(A5));
+        assertNull(chessboard.getPieceAt(A1));
     }
 }

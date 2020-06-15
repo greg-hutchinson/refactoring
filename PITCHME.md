@@ -240,37 +240,120 @@ public void processSomething() {
 - Loop bodies (streams tend to invalidate this statement)
 
 ---
+@snap[north-east span-25 text-05  text-left text-yellow]
+Consider if then else
+@snapend
+@snap[north-west span-75]
 ```java
-    public double getAmount() {
-	    // Some code here calculate base and other stuff.
-        // ...
-	    double premium;
-	    if (age < 16)
-	        premium = 1.5;
-	    else 
-	        premium = 1.0
-	    return premium * base;
+public double getAmount() {
+    // Some code here calculate base and other stuff.
+    // ...
+    // ...
+	double premium;
+	if (age < 16)
+	    premium = 1.5;
+	else 
+	    premium = 1.0
+	return premium * base;
 }
 
 ```
-@[5-8](Make getter)
----
+@[6-9](Make getter)
+@snapend
 ---
 ```java
-    public double getAmount() {
-	    // Some code here calculate other stuff.
-        // ...
-	    double premium = getPremium();
-	    return premium * base;
-    }
+public double getAmount() {
+    // Some code here calculate other stuff.
+    // ...
+    // ...
+	double premium = getPremium();
+	return premium * base;
+}
 
-    private double getPremium() {
-        if (age < 16)
-	        return 1.5;
-        return premium = 1.0;
-    }
+private double getPremium() {
+    if (age < 16)
+	    return 1.5;
+    return premium = 1.0;
+}
 ```
-@[9-11](Note: no else)
+@[10-12](Note: no else)
+---
+@snap[north-east span-25 text-05  text-left text-yellow]
+Consider loops and loop bodies
+@snapend
+@snap[north-west span-75]
+```java
+public double getNetWorth(List <Account> accounts) {
+	double total, networth, fees, admin;
+    // Some code here calculate fees and admin.
+    // ...
+    // ...
+	for (Account account: accounts) {
+        if (account.getType() == CREDIT) {
+            total -= account.getBalance();
+        }
+        else {
+            total += account.getBalance();
+        }
+	}
+	return total + fees + admin + networth
+}
+```
+@[6-13](if you were to refactor these lines - how many parms?)
+@snapend
+---
+@snap[north-east span-25 text-05  text-left text-yellow]
+Declare Variables where they are needed
+@snapend
+@snap[north-west span-75]
+```java
+public double getNetWorth(List <Account> accounts) {
+	double networth, fees, admin;
+    // Some code here calculate fees and admin.
+    // ...
+    // ...
+    double total;
+	for (Account account: accounts) {
+        if (account.getType() == CREDIT) {
+            total -= account.getBalance();
+        }
+        else {
+            total += account.getBalance();
+        }
+	}
+	return total + fees + admin + networth
+}
+```
+@[6-14](if you were to refactor these lines - how many parms?)
+@snapend
+---
+@snap[north-east span-25 text-05  text-left text-yellow]
+Consider loops and loop bodies
+@snapend
+@snap[north-west span-75]
+```java
+public double getNetWorth(List <Account> accounts) {
+	double networth, fees, admin;
+    // Lots more code here calculate fees and admin.
+    // ...
+	return getTotal() + fees + admin + networth
+}
+
+private double getTotal(List<Account> accounts) {
+    double total = 0.0;
+    for (Account account: accounts) 
+        total += getAmountToBeAdded(account);
+}
+
+private double getAmountToBeAdded(Account account) {
+    if (account.getType() == CREDIT) {
+        return -account.getBalance();
+    return account.getBalance();
+    }
+}
+```
+@[14](Poorly named - but this is a fictious scenario)
+@snapend
 ---
 ## Comments
 @snap[west text-08 span-90]

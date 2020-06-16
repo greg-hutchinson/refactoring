@@ -10,9 +10,8 @@ public class Rook extends ChessPiece {
 
 
     public boolean moveTo(Position targetPosition) {
-        Position currentPosition = getPosition();
         //same row or same column?
-        if (targetPosition.x != currentPosition.x && targetPosition.y != currentPosition.y) {
+        if (targetPosition.x != getPosition().x && targetPosition.y != getPosition().y) {
             return false;
         }
         ChessPiece targetPiece = getChessboard().getPieceAt(targetPosition);
@@ -20,8 +19,8 @@ public class Rook extends ChessPiece {
             if (targetPiece.getColor() == getColor())
                 return false;
         }
-        if (targetPosition.x == currentPosition.x) {
-            int start = currentPosition.getYOffset();
+        if (targetPosition.x == getPosition().x) {
+            int start = getPosition().getYOffset();
             int end = targetPosition.getYOffset();
             int increment = 0;
             if (start > end)
@@ -38,8 +37,8 @@ public class Rook extends ChessPiece {
                 }
             }
         }
-        if (targetPosition.y == currentPosition.y) {
-            int start = currentPosition.getXOffset();
+        if (targetPosition.y == getPosition().y) {
+            int start = getPosition().getXOffset();
             int end = targetPosition.getXOffset();
             int increment = 0;
             if (start > end)

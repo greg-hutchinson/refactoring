@@ -1,17 +1,38 @@
 package ca.attractors.chess;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static ca.attractors.chess.Position.A2;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static ca.attractors.chess.PieceColor.White;
+import static ca.attractors.chess.Position.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ChessboardTest {
+    private Chessboard chessboard;
+    private Rook rook;
+
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook, D4);
+    }
+
     @Test
-    void construction() {
-        Chessboard chessboard = new Chessboard();
-        chessboard.initializeChessBoard();
-        Pawn pawn1  = (Pawn) chessboard.getPieceAt(A2);
-        assertEquals(A2, pawn1.getPosition());
+    void getPieceAt() {
+        assertSame(rook, chessboard.getPieceAt(D4));
+    }
+
+    @Test
+    void movePieceTo() {
+        chessboard.movePieceTo(rook, A1);
+        assertNull(chessboard.getPieceAt(D4));
+        assertSame(rook, chessboard.getPieceAt(A1));
+    }
+
+    @Test
+    void getPositionOf() {
+        assertSame(D4, chessboard.getPositionOf(rook));
     }
 }

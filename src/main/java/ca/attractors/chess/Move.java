@@ -8,7 +8,6 @@ public class Move {
     private Position source;
     private Position target;
     private Chessboard chessboard;
-    private List<Position> path = new ArrayList<>();
 
     public Move(ChessPiece piece, Position target) {
         this.piece = piece;
@@ -34,8 +33,7 @@ public class Move {
     public boolean isPathBlocked() {
         if (!isLine())
             throw new IllegalStateException("Can't invoke isBlocked if the move is not a line.");
-        path = source.getPathTo(target);
-        for (Position position : path)
+        for (Position position :  source.getPathTo(target))
             if (chessboard.getPieceAt(position) != null)
                 return true;
         return false;

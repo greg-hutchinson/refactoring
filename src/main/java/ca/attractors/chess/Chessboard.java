@@ -9,10 +9,6 @@ public class Chessboard {
     public Chessboard() {
     }
 
-    public void initializeChessBoard() {
-        Pawn pawn = new Pawn(this, White);
-        pieces[0][1] = pawn;
-    }
     public ChessPiece getPieceAt(Position position) {
         return pieces[position.getXOffset()] [position.getYOffset()];
     }
@@ -22,12 +18,11 @@ public class Chessboard {
     }
 
     void movePieceTo(ChessPiece chessPiece, Position position) {
-        Position old = chessPiece.getPosition();
+        putPieceAt(null, chessPiece.getPosition());
         putPieceAt(chessPiece, position);
-        pieces[old.getXOffset()][old.getYOffset()] = null;
     }
 
-    public Position getPositionOf(ChessPiece pawn) {
+    Position getPositionOf(ChessPiece pawn) {
         for (Position position: Position.values()) {
             ChessPiece piece = getPieceAt(position);
             if (piece == pawn) {    //Refactor - inline variable - remove braces?

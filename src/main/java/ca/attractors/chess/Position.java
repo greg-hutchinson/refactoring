@@ -58,14 +58,10 @@ public enum Position {
 
     public List<Position> getPathTo(Position target) {
         List<Position> path = new ArrayList<>();
-        int startX = getXOffset();
-        int endX = target.getXOffset();
-        int startY = getYOffset();
-        int endY = target.getYOffset();
-        int incrementX = Integer.signum(endX - startX);
-        int incrementY = Integer.signum(endY - startY);
-        int y = startY + incrementY;
-        for (int x = startX + incrementX; x != endX || y != endY; x = x + incrementX, y = y + incrementY)
+        int incrementX = Integer.signum(target.getXOffset() - getXOffset());
+        int incrementY = Integer.signum(target.getYOffset() - getYOffset());
+        int y = getYOffset() + incrementY;
+        for (int x = getXOffset() + incrementX; x != target.getXOffset() || y != target.getYOffset(); x = x + incrementX, y = y + incrementY)
             path.add(Position.getPositionFor(x, y));
         return path;
     }

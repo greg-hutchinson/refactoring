@@ -38,6 +38,24 @@ public enum Position {
         throw new IllegalArgumentException("There is no position with these offsets " + xOffset + ":" + yOffset);
     }
 
+    public boolean isLineTo(Position target) {
+        return isDiagonalTo(target) || isHorizontalTo(target) || isVerticalTo(target);
+    }
+
+    public boolean isHorizontalTo(Position target) {
+        return y == target.y;
+    }
+    public boolean isVerticalTo(Position target) {
+        return x == target.x;
+    }
+    public boolean isDiagonalTo(Position target)
+    {
+        int diffx = Math.abs(getXOffset() - target.getXOffset());
+        int diffy = Math.abs(getYOffset() - target.getYOffset());
+        return diffx == diffy;
+    }
+
+
     public List<Position> getPathTo(Position target) {
         List<Position> path = new ArrayList<>();
         int startX = getXOffset();

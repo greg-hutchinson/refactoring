@@ -22,7 +22,7 @@ public abstract  class ChessPiece {
     }
 
     public boolean moveTo(Position targetPosition) {
-        Move move = new Move(getPosition(), targetPosition, chessboard);
+        Move move = new Move(this, targetPosition);
         if (!canMove(move))
             return false;
         getChessboard().movePieceTo(this, targetPosition);

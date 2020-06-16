@@ -4,35 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Move {
+    private ChessPiece piece;
     private Position source;
     private Position target;
     private Chessboard chessboard;
     private List<Position> path = new ArrayList<>();
 
-    public Move(Position source, Position target, Chessboard chessboard) {
-        this.source = source;
+    public Move(ChessPiece piece, Position target) {
+        this.piece = piece;
+        this.source = piece.getPosition();
         this.target = target;
-        this.chessboard = chessboard;
+        this.chessboard = piece.getChessboard();
     }
 
 
     public boolean isLine() {
-        return isDiagonal() || isHorizontal() || isVertical();
+        return source.isLineTo(target);
     }
-
-    public boolean isHorizontal() {
-        return target.y == source.y;
-    }
-
+    public boolean isHorizontal() { return source.isHorizontalTo(target); }
     public boolean isVertical() {
-        return target.x == source.x;
+        return source.isVerticalTo(target);
     }
-
-    public boolean isDiagonal() {
-        int diffx = Math.abs(source.getXOffset() - target.getXOffset());
-        int diffy = Math.abs(source.getYOffset() - target.getYOffset());
-        return diffx == diffy;
-    }
+    public boolean isDiagonal() {return source.isDiagonalTo(target); }
 
     public boolean isPathUnoccupied() {
         return !isPathBlocked();
@@ -52,7 +45,6 @@ public class Move {
         ChessPiece targetPiece = chessboard.getPieceAt(target);
         if (targetPiece == null)
             return false;
-        ChessPiece sourcePiece = chessboard.getPieceAt(source);
-        return sourcePiece.getColor() == targetPiece.getColor();
+        return piece.getColor() == targetPiece.getColor();
     }
 }

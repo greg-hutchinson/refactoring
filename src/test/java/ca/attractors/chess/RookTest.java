@@ -58,7 +58,6 @@ public class RookTest {
         assertSame(rook.getPosition(), A4);
     }
 
-
     @Test
     void moveHorizontallyToCellWithOccupiedCellsInBetween() {
         Rook rook2 = new Rook(chessboard, Black);

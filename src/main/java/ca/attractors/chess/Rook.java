@@ -8,11 +8,6 @@ public class Rook extends ChessPiece {
         super(chessboard, color);
     }
 
-    //FIXME, This method works but seems to violate lots of rules.
-    //Fixme, GH, Clean up the duplication. isPathBlockedFor
-    //Fixme, GH, Clean up the duplication. getPathTo
-    //Fixme, GH, Extract cantMove
-    //Fixme, GH, Extract isOccupiedBySameColor and move to top of can't move
 
     public boolean moveTo(Position targetPosition) {
         Position currentPosition = getPosition();
@@ -84,3 +79,16 @@ public class Rook extends ChessPiece {
     }
 
 */
+
+
+//FIXME, This method works but seems to violate lots of rules.
+//FIXME, GH, Clean up the duplication. isPathBlockedFor
+//FIXME, GH, Clean up the duplication. getPathTo
+//FIXME, GH, Extract cantMove
+//FIXME, GH, Extract isOccupiedBySameColor and move to top of can't move
+//FIXME, GH, Pull up moveTo
+//FIXME, GH, Refactor cantMove into 2
+//FIXME, GH, Pull up cantMove , isOccupied..
+//FIXME, GH, getPathTo
+//FIXME, GH, isPathBlocked to Chessboard
+//FIXME, getPathTo to Positions

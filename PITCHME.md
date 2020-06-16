@@ -428,12 +428,15 @@ public class RookTest {
 @snapend
 
 ---
+@snap[north-west span-95 text-05  text-left ]
 # Possible Refactoring Checklist
 - Duplicate code ?
 - Method to large?
 - Class to large?
+  - If many methods exist in the class only to support 1 public API, consider making an inner class.
 - Does all the behaviour in a class look like it logically should belong to that class?
-
+  - An Autodriver may have a spouse but a Vehicle absolutely does not.
+@snapend  
 ---
 # And Lastly ...
 - Refactoring is a practiced skill. So practice. Try something. Not all refactors work out.

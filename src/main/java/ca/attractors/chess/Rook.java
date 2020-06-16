@@ -9,6 +9,11 @@ public class Rook extends ChessPiece {
     }
 
     //FIXME, This method works but seems to violate lots of rules.
+    //Fixme, GH, Clean up the duplication. isPathBlockedFor
+    //Fixme, GH, Clean up the duplication. getPathTo
+    //Fixme, GH, Extract cantMove
+    //Fixme, GH, Extract isOccupiedBySameColor and move to top of can't move
+
     public boolean moveTo(Position targetPosition) {
         Position currentPosition = getPosition();
         //same row or same column?
@@ -61,3 +66,21 @@ public class Rook extends ChessPiece {
     }
 
 }
+
+
+/*
+    private List<Position> getPathTo(Position source, Position target) {
+        List<Position> path = new ArrayList<>();
+        int startX = source.getXOffset();
+        int endX = target.getXOffset();
+        int startY = source.getYOffset();
+        int endY = target.getYOffset();
+        int incrementX = Integer.signum(endX - startX);
+        int incrementY = Integer.signum(endY - startY);
+        int y = startY + incrementY;
+        for (int x = startX + incrementX; x != endX || y != endY; x = x + incrementX, y = y + incrementY)
+            path.add(Position.getPositionFor(x, y));
+        return path;
+    }
+
+*/

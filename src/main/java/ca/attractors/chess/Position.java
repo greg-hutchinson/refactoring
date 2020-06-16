@@ -1,5 +1,8 @@
 package ca.attractors.chess;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Position {
     A1('a',1), A2('a', 2), A3('a', 3), A4('a', 4), A5('a', 5), A6('a', 6), A7('a', 7), A8('a', 8),
     B1('b',1), B2('b', 2), B3('b', 3), B4('b', 4), B5('b', 5), B6('b', 6), B7('b', 7), B8('b', 8),
@@ -33,5 +36,19 @@ public enum Position {
             }
         }
         throw new IllegalArgumentException("There is no position with these offsets " + xOffset + ":" + yOffset);
+    }
+
+    public List<Position> getPathTo(Position target) {
+        List<Position> path = new ArrayList<>();
+        int startX = getXOffset();
+        int endX = target.getXOffset();
+        int startY = getYOffset();
+        int endY = target.getYOffset();
+        int incrementX = Integer.signum(endX - startX);
+        int incrementY = Integer.signum(endY - startY);
+        int y = startY + incrementY;
+        for (int x = startX + incrementX; x != endX || y != endY; x = x + incrementX, y = y + incrementY)
+            path.add(Position.getPositionFor(x, y));
+        return path;
     }
 }

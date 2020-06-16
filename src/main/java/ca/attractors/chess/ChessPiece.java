@@ -20,4 +20,13 @@ public class ChessPiece {
     public PieceColor getColor() {
         return color;
     }
+
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
+    @Override
+    public String toString() {
+        return getName() + "{" + getColor() + " at: " + getPosition() +"}";
+    }
+
 }

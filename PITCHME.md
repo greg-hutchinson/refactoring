@@ -7,32 +7,17 @@
 - Alignment on Criteria
 - Definition of Refactoring
 - Different types of Refactorings
-
+- Examples
 ---?image=assets/img/whyRefactor.jpg
 ---
 ## Why Refactor
-@snap[west span-45 text-center text-07]
-@box[bg-purple  text-left text-white] (Question)
-@box[bg-purple  text-left text-white] (Who are we refactoring for?)
-@box[bg-purple  text-left text-white] (With what intent?)
-@snapend
-
----
-## Why Refactor
-@snap[west span-45 text-center text-07]
-@box[bg-purple  text-left text-white] (Question)
-@box[bg-purple  text-left text-white] (Who are we refactoring for?)
-@box[bg-purple  text-left text-white] (With what intent?)
-@snapend
-
-@snap[east span-45 text-center text-07]
-@box[bg-purple  text-left text-white] (Answer)
-@box[bg-purple  text-left text-white] (The reader of the code)
-@box[bg-purple  text-left text-white] (That it is easily understandable)
-@snapend
-
-
-
+@ul[list-spaced-bullets]
+- Easier to read (understand)
+- Easier to Maintain
+- Easier to Enhance
+- Going for ***Clean Code***
+- It's for the next reader
+@ulend
 
 ---
 ## Definition of Clean Code
@@ -142,6 +127,7 @@ Verb: to restructure software by applying a series of refactorings without chang
 - Methods with no conditional logic are easier to understand than methods with conditional logic
 - Methods with no loops are easier to understand than methods with loops
 - Methods that follow a naming pattern are easier to understand than ones that are unique (Example - getters)
+- Strings are ***evil***
 @ulend
 @snapend
 ---
@@ -227,14 +213,17 @@ public void processSomething() {
 
 ---
 ## Refactoring - Extract Method
-- To turn part of a larger method into it's own method.
+@snap[West text-06 text-left span-100 ]
+- To turn part of a large method into it's own method.
 - This is the most used refactoring tool
 - Keeps code at the same level of abstraction.
-- Use it everytime you feel like documenting the internals of a method (I.e
+- Use it every time you feel like documenting the internals of a method (I.e
 
 //These next 5 lines calculate the net pay
+@snapend
 ---
 ## Candidates for Extract Method
+- Duplicate code
 - if then else statements
 - Loops
 - Loop bodies (streams tend to invalidate this statement)
@@ -299,7 +288,7 @@ public double getNetWorth(List <Account> accounts) {
 	return total + fees + admin + networth
 }
 ```
-@[6-13](if you were to refactor these lines - how many parms?)
+@[6-13](if you were to extract (method) these lines - how many parms would be proposed?)
 @snapend
 ---
 @snap[north-east span-25 text-05  text-left text-yellow]
@@ -324,7 +313,7 @@ public double getNetWorth(List <Account> accounts) {
 	return total + fees + admin + networth
 }
 ```
-@[6-14](if you were to refactor these lines - how many parms?)
+@[6-14](if you were to extract (method) these lines - how many parms would be proposed?)
 @snapend
 ---
 @snap[north-east span-25 text-05  text-left text-yellow]
@@ -342,6 +331,7 @@ public double getNetWorth(List <Account> accounts) {
 private double getTotal(List<Account> accounts) {
     double total = 0.0;
     for (Account account: accounts)
+        //From previous refactoring we extracted this
         total += getAmountToBeAdded(account);
 }
 

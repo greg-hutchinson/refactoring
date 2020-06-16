@@ -78,7 +78,7 @@ public boolean isBlackJack() {
         }
         return value == 21;
     }
-    else 
+    else
         return false;
 }
 ```
@@ -90,7 +90,7 @@ public boolean isBlackJack() {
     Card card1 = cards.get(0);
     Card card2 = cards.get(1);
     if (card1.isAce() == 1)  
-        if (card2.isFace()) { 
+        if (card2.isFace()) {
             return true;
         }
     if ((card1.isFace()) && (card2.isAce()))
@@ -252,7 +252,7 @@ public double getAmount() {
 	double premium;
 	if (age < 16)
 	    premium = 1.5;
-	else 
+	else
 	    premium = 1.0
 	return premium * base;
 }
@@ -341,7 +341,7 @@ public double getNetWorth(List <Account> accounts) {
 
 private double getTotal(List<Account> accounts) {
     double total = 0.0;
-    for (Account account: accounts) 
+    for (Account account: accounts)
         total += getAmountToBeAdded(account);
 }
 
@@ -352,7 +352,7 @@ private double getAmountToBeAdded(Account account) {
     }
 }
 ```
-@[14](Poorly named - but this is a fictious scenario)
+@[14](Poorly named - but this is a fictitious scenario)
 @snapend
 ---
 ## Comments
@@ -437,3 +437,17 @@ public class RookTest {
 @[10](And we have captured the concept of a "Position" in one argument)
 @snapend
 
+---
+# Possible Refactoring Checklist
+- Duplicate code ?
+- Method to large?
+- Class to large?
+- Does all the behaviour in a class look like it logically should belong to that class?
+
+---
+# And Lastly ...
+- Refactoring is a practiced skill. So practice. Try something. Not all refactors work out.
+-
+---
+Examples
+Chessboard

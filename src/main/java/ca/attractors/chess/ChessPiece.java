@@ -9,6 +9,9 @@ public class ChessPiece {
         this.color = color;
     }
 
+    public static Rook newRookOnChessboard (Chessboard chessboard) {
+        return new Rook(chessboard, PieceColor.White );
+    }
     public Chessboard getChessboard() {
         return chessboard;
     }

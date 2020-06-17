@@ -229,11 +229,17 @@ public void processSomething() {
 @snap[West text-06 text-left span-100 ]
 - To turn part of a large method into it's own method.
 - This is the most used refactoring tool
-- Keeps code at the same level of abstraction.
 - Use it every time you feel like documenting the internals of a method (I.e
 
 //These next 5 lines calculate the net pay
 @snapend
+## Benefits of Extract Method
+@snap[West text-06 text-left span-100 ]
+- Keeps code at the same level of abstraction.
+- Usually removes 1 level of indentation. This is a ***key*** point.
+  - This is what enables that code only has 1 level of indentation.
+@snapend
+
 ---
 ## Candidates for Extract Method
 - Duplicate code

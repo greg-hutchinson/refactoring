@@ -1,4 +1,4 @@
----?image=assets/img/refactoring-background.png
+---?image=assets/img/Intro.png
 
 ---
 ## Outline

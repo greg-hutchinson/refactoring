@@ -13,7 +13,6 @@
 ---
 ## Factor (from Mathematics)
 @img[midpoint span-70](assets/img/factor.png)
----
 
 ---?image=assets/img/whyRefactor.jpg
 ---
@@ -81,7 +80,7 @@ public boolean isBlackJack() {
         return false;
     Card card1 = cards.get(0);
     Card card2 = cards.get(1);
-    if (card1.isAce() == 1)  
+    if (card1.isAce())  
         if (card2.isFace()) {
             return true;
         }

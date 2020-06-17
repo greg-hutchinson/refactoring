@@ -238,7 +238,7 @@ public void processSomething() {
 @snap[West text-06 text-left span-100 ]
 - Keeps code at the same level of abstraction.
 - Usually removes 1 level of indentation. This is a ***key*** point.
-  - This is what enables that code only has 1 level of indentation.
+  - This is what enables code to only have 1 level of indentation.
 @snapend
 ---
 ## Candidates for Extract Method

@@ -232,6 +232,7 @@ public void processSomething() {
 - Use it every time you feel like documenting the internals of a method (I.e
 
 //These next 5 lines calculate the net pay
+---
 @snapend
 ## Benefits of Extract Method
 @snap[West text-06 text-left span-100 ]
@@ -239,7 +240,6 @@ public void processSomething() {
 - Usually removes 1 level of indentation. This is a ***key*** point.
   - This is what enables that code only has 1 level of indentation.
 @snapend
-
 ---
 ## Candidates for Extract Method
 - Duplicate code

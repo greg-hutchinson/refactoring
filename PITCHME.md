@@ -8,6 +8,13 @@
 - Definition of Refactoring
 - Different types of Refactorings
 - Examples
+---
+### Where does the term Re-factor come from?
+---
+## Factor (from Mathematics)
+@img[midpoint span-70](assets/img/factor.png)
+---
+
 ---?image=assets/img/whyRefactor.jpg
 ---
 ## Why Refactor
@@ -130,6 +137,12 @@ Verb: to restructure software by applying a series of refactorings without chang
 - Strings are ***evil***
 @ulend
 @snapend
+---
+## End State
+Properly Factored Code will never have more than 1 level of indentation
+
+(ok - maybe 2 but no more)
+
 ---
 
 ## General Guidelines

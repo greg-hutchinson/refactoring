@@ -22,10 +22,10 @@ public class Chessboard {
 
 
     //FIXME, GH, Two code smells in this method and a simplification
-    public Position getPositionOf(ChessPiece pawn) {
+    public Position getPositionOf(ChessPiece chesspiece) {
         for (Position position: Position.values()) {
             ChessPiece piece = getPieceAt(position);
-            if (piece == pawn) {
+            if (piece == chesspiece) {
                 return position;
             }
         }

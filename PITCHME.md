@@ -458,7 +458,19 @@ public class RookTest {
 ---
 # And Lastly ...
 - Refactoring is a practiced skill. So practice. Try something. Not all refactors work out.
--
+- One refactor will quite often lead to other ideas about refactoring.
+    - You get a better idea of what is going on?
 ---
-Examples
-Chessboard
+Exercise
+@snap[West text-06 text-left span-100 ]
+- Clone the repo at
+    - https://github.com/greg-hutchinson/refactoring-exercise.git
+- Make a branch using your name as the branch name
+- Refactor
+    - After each refactor ***commit*** to show your thought process.
+    - Push when you are done, if you would like me to provide feedback.
+- You can do as much or as little as you want. Since
+<br><br>
+        if (madeChanges() && designImproved())
+            successfulRefactor();
+@snapend

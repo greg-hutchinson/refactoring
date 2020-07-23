@@ -13,10 +13,8 @@
 ---
 ## Factor (from Mathematics)
 @img[midpoint span-70](assets/img/factor.png)
-
----?image=assets/img/whyRefactor.jpg
 ---
-## Why Refactor
+## Why Refactor?
 @ul[list-spaced-bullets]
 - Easier to read (understand)
 - Easier to Maintain
@@ -53,6 +51,8 @@
 - We have designed a class called BlackjackHand which will evaluate what the total of the current cards in the hand are.
 - It also needs to know if the current cards in the hand consistute a "Blackjack" since a "Blackjack" pays 3:2.
 - A blackJack is when there is only 2 cards and the total is 21 (Ace and a Face card)
+- Classes are
+    - Deck, Card, BlackjackHand
 @snapend
 ---
 ```Java
@@ -73,6 +73,7 @@ public boolean isBlackJack() {
         return false;
 }
 ```
+@[1-15](this is ***coding*** <br>It works but everything is detailed)
 ---
 ```Java
 public boolean isBlackJack() {
@@ -89,7 +90,10 @@ public boolean isBlackJack() {
     return false;
 }
 ```
+@[1-12](Who thinks this is better<br>and why?)
 @[2-3](short-circuit whenever possible<br> as it removes one level of indentation)
+@[6-7](Delegate some details to the Card class)
+@[10-12](this smells - why?)
 ---
 ```Java
 // You can call it beautiful code when the code also
@@ -101,6 +105,7 @@ public boolean isBlackJack() {
     return getNumberOfCards() == 2 && getTotal() == 21;
 }
 ```
+@[7-7](Beautiful code - ...the language was made for the problem)
 
 ---
 ## Definition of Clean Code
@@ -133,7 +138,6 @@ Verb: to restructure software by applying a series of refactorings without chang
 - Methods with no conditional logic are easier to understand than methods with conditional logic
 - Methods with no loops are easier to understand than methods with loops
 - Methods that follow a naming pattern are easier to understand than ones that are unique (Example - getters)
-- Strings are ***evil***
 @ulend
 @snapend
 ---
@@ -194,7 +198,7 @@ public void processSomething() {
 ### Rule 1 - Small !!!
 
 - How many Lines of Code in a function?
-  - 10?
+  - <= 10?
   - Should fit easily on one screen
   - Horizontal scrolling is not allowed
 
@@ -461,6 +465,15 @@ public class RookTest {
 - One refactor will quite often lead to other ideas about refactoring.
     - You get a better idea of what is going on?
 ---
+# Summary (And/Or Experiment)
+@snap[West text-06 text-left span-100 ]
+- Try and write methods with only 1 level of indentation
+- Methods that have the same level of abstraction
+- Method size <=10 lines of code
+- No method takes more that 3 parameters
+@snapend
+```
+---
 Exercise
 @snap[West text-06 text-left span-100 ]
 - Clone the repo at
@@ -474,3 +487,5 @@ Exercise
         if (madeChanges() && designImproved())
             successfulRefactor();
 @snapend
+---
+# Thank You

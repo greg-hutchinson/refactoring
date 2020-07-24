@@ -466,13 +466,13 @@ public class RookTest {
     - You get a better idea of what is going on?
 ---
 ### Summary (And/Or Experiment)
-@snap[West text-06 text-left span-100 ]
+@snap[West text-07 text-left span-100 ]
 @ul[list-spaced-bullets]
 - Try and write methods with only 1 level of indentation
 - Methods that have the same level of abstraction
 - Method size <=10 lines of code
 - No method takes more that 3 parameters
-- Code reads like the language was designed for the problem
+- ***Code reads like the language was designed for the problem***
 @ulend
 @snapend
 ```

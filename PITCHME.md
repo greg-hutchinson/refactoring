@@ -465,7 +465,7 @@ public class RookTest {
 - One refactor will quite often lead to other ideas about refactoring.
     - You get a better idea of what is going on?
 ---
-# Summary (And/Or Experiment)
+### Summary (And/Or Experiment)
 @snap[West text-06 text-left span-100 ]
 - Try and write methods with only 1 level of indentation
 - Methods that have the same level of abstraction

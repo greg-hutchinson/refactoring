@@ -462,8 +462,8 @@ public class RookTest {
 ---
 # And Lastly ...
 - Refactoring is a practiced skill. So practice. Try something. Not all refactors work out.
-- One refactor will quite often lead to other ideas about refactoring.
-    - You get a better idea of what is going on?
+- One refactor will quite often lead to other ideas about refactoring. (???)
+
 ---
 ### Summary (And/Or Experiment)
 @snap[West text-07 text-left span-100 ]

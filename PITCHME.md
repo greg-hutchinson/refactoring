@@ -481,19 +481,10 @@ public class RookTest {
 @snapend
 
 ---
-@snap[north-west span-95 text-05  text-left ]
-# Possible Refactoring Checklist
-- Duplicate code ?
-- Method to large?
-- Class to large?
-  - If many methods exist in the class only to support 1 public API, consider making an inner class.
-- Does all the behaviour in a class look like it logically should belong to that class?
-  - An Autodriver may have a spouse but a Vehicle absolutely does not.
-@snapend  
----
-# And Lastly ...
+## And Lastly, Please Remember
 - Refactoring is a practiced skill. So practice. Try something. Not all refactors work out.
-- One refactor will quite often lead to other ideas about refactoring. (???)
+- Refactoring of code is not an absolute term. In theory, you can always do more. So no when to quit.
+- One refactor will quite often lead to other ideas about refactoring.
 
 ---
 ### Summary (And/Or Experiment)
@@ -507,7 +498,6 @@ public class RookTest {
 - ***Code reads like the language was designed for the problem***
 @ulend
 @snapend
-```
 ---
 Exercise
 @snap[West text-06 text-left span-100 ]
@@ -518,12 +508,15 @@ Exercise
     - After each refactor ***commit*** to show your thought process.
     - Push when you are done, if you would like me to provide feedback.
 - You can do as much or as little as you want. Since ...
+@snapend
+---
 <br><br>
 ```java
   public boolean wasSuccessfulRefactor() {
       return madeChanges() && easierToUnderstand();
   }
 ```
-@snapend
----
+<br><br>
+@snap[midpoint text-09 text-center span-100 ]
 # Thank You
+@snapend

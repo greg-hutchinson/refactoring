@@ -504,8 +504,11 @@ Exercise
 - Clone the repo at
     - https://github.com/greg-hutchinson/refactoring-exercise.git
 - Make a branch using your name as the branch name
-- Refactor
+- Run the test cases in RookTest - make sure they all pass.
+- Understand all of the move... tests in RookTest.
+- Refactor the method moveTo in class Rook - Use the guidelines from previous slide
     - After each refactor ***commit*** to show your thought process.
+    - Make sure the tests still run
     - Push when you are done, if you would like me to provide feedback.
 - You can do as much or as little as you want. Since ...
 @snapend

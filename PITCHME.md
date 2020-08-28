@@ -121,30 +121,31 @@ public boolean isBlackJack() {
 @snapend
 
 @snap[midpoint text-08 text-left span-85]
-Noun: a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.
+Noun: a change made to the internal structure of software to make it ***easier to understand*** and cheaper to modify without changing its observable behavior.
 
 <br>
 Verb: to restructure software by applying a series of refactorings without changing its observable behavior.
 @snapend
 
 ---
-
-#### The goal of refactoring is easier to understand when we acknowledge the following...
+#### If the goal of refactoring is to make code ***easier to understand*** then we need to agree on what that means
 @snap[West text-06 text-left span-100 ]
 @ul[list-spaced-bullets]
-- Methods with fewer parameters are easier to understand than those with more parameters
-  - Niladic, monadic, dyadic, triadic, polyadic
-- Methods with less lines of code are easier to understand than methods with more lines of code
-- Methods with no conditional logic are easier to understand than methods with conditional logic
-- Methods with no loops are easier to understand than methods with loops
-- Methods that follow a naming pattern are easier to understand than ones that are unique (Example - getters)
+- Methods with ***fewer parameters*** are easier to understand than those with more parameters - Niladic, monadic, dyadic, triadic, polyadic
+- Methods with ***less lines of code*** are easier to understand than methods with more lines of code
+- Methods with ***no conditional logic*** are easier to understand than methods with conditional logic
+- Methods with ***no loops*** are easier to understand than methods with loops
+- Methods that follow a ***naming pattern*** are easier to understand than ones that are unique (Example - getters)
 @ulend
 @snapend
 ---
 ## End State
+@snap[midpoint text-09 text-center span-100 ]
 Properly Factored Code will never have more than 1 level of indentation
-
+@snapend
+@snap[south text-06 text-center span-100 ]
 (ok - maybe 2 but no more)
+@snapend
 
 ---
 
@@ -233,10 +234,15 @@ public void processSomething() {
 - To turn part of a large method into it's own method.
 - This is the most used refactoring tool
 - Use it every time you feel like documenting the internals of a method (I.e
-
-//These next 5 lines calculate the net pay
----
+<br><br>
+     // These next 5 lines calculate the net pay
+        deductions = ...;
+        taxes = ...;
+        pension = ...;
+        gross = ...;
+        netPay = gross - (deductions + taxes + pension);
 @snapend
+---
 ## Benefits of Extract Method
 @snap[West text-06 text-left span-100 ]
 - Keeps code at the same level of abstraction.
@@ -269,7 +275,7 @@ public double getAmount() {
 }
 
 ```
-@[6-9](Make getter)
+@[6-9](extract this into a method)
 @snapend
 ---
 ```java
@@ -300,12 +306,10 @@ public double getNetWorth(List <Account> accounts) {
     // ...
     // ...
 	for (Account account: accounts) {
-        if (account.getType() == CREDIT) {
+        if (account.getType() == CREDIT)
             total -= account.getBalance();
-        }
-        else {
+        else
             total += account.getBalance();
-        }
 	}
 	return total + fees + admin + networth
 }
@@ -367,9 +371,36 @@ private double getAmountToBeAdded(Account account) {
 @[14](Poorly named - but this is a fictitious scenario)
 @snapend
 ---
+@snap[north-east span-10 text-05  text-left text-yellow]
+And finally
+@snapend
+@snap[north-west span-90]
+```java
+public double getNetWorth(List <Account> accounts) {
+    // like the language was designed
+    // for the problem.
+	 return getTotal() + getFees() + getAdmin() + getNetworth();
+}
+
+private double getTotal(List<Account> accounts) {
+    double total = 0.0;
+    for (Account account: accounts)
+        //From previous refactoring we extracted this
+        total += getAmountToBeAdded(account);
+}
+
+private double getAmountToBeAdded(Account account) {
+    if (account.getType() == CREDIT) {
+        return -account.getBalance();
+    return account.getBalance();
+    }
+}
+```
+@snapend
+---
 ## Comments
 @snap[west text-08 span-90]
-@quote[The proper use of comments is to compensate for our failure to express ourself in code](Robert Martin - Author "Clean Code")
+@quote[The proper use of comments is to compensate for our ***failure*** to express ourself in code](Robert Martin - Author "Clean Code")
 @snapend
 ---
 ## Unit Tests
@@ -471,7 +502,8 @@ public class RookTest {
 - Try and write methods with only 1 level of indentation
 - Methods that have the same level of abstraction
 - Method size <=10 lines of code
-- No method takes more that 3 parameters
+- No method takes more that 3 parameters (and less is better)
+- No duplicate code
 - ***Code reads like the language was designed for the problem***
 @ulend
 @snapend
@@ -485,10 +517,13 @@ Exercise
 - Refactor
     - After each refactor ***commit*** to show your thought process.
     - Push when you are done, if you would like me to provide feedback.
-- You can do as much or as little as you want. Since
+- You can do as much or as little as you want. Since ...
 <br><br>
-        if (madeChanges() && designImproved())
-            successfulRefactor();
+```java
+  public boolean wasSuccessfulRefactor() {
+      return madeChanges() && easierToUnderstand();
+  }
+```
 @snapend
 ---
 # Thank You

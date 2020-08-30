@@ -31,7 +31,8 @@ I had done the initial refactorings that most of you had done as well.
 
 I think the key to this were a couple of things:
 - I added a class Move - which encapsulated the concept of a Chess move being a source and target position on a chessboard. 
-I was able to push a lot of the details about horizontal and vertical movement and paths between objects here.
+I was able to push a lot of the details about horizontal and vertical movement and paths between objects here. This has the
+extra benefit that all this code can be tested independently of any of the ChessPiece classes.
 - Pushed several methods to the Position class (Enum). If you find that you are taking an object apart by querying its
 data and making decisions, consider moving the behaviour to this class. In this example it is quite trivial but this 
 is quite important in other scenarios. (I.e. 

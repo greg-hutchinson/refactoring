@@ -135,16 +135,22 @@ Verb: to restructure software by applying a series of refactorings without chang
 - Methods with ***less lines of code*** are easier to understand than methods with more lines of code
 - Methods with ***no conditional logic*** are easier to understand than methods with conditional logic
 - Methods with ***no loops*** are easier to understand than methods with loops
+- Methods with ***shorter lines*** are easier to understand than longer lines
 - Methods that follow a ***naming pattern*** are easier to understand than ones that are unique (Example - getters)
 @ulend
 @snapend
 ---
-## End State
+## Properly Factored Code will:
 @snap[midpoint text-09 text-center span-100 ]
-Properly Factored Code will never have more than 1 level of indentation
+- never have more than 1 level of indentation
+- have <= 3 parameters in every method
+- be <= 10 lines of code
+- not be ***wider*** than 100 characters
+- follow good naming patterns
+
 @snapend
 @snap[south text-06 text-center span-100 ]
-(ok - maybe 2 but no more)
+- remember these are ***guidelines***
 @snapend
 
 ---
@@ -235,12 +241,14 @@ public void processSomething() {
 - This is the most used refactoring tool
 - Use it every time you feel like documenting the internals of a method (I.e
 <br><br>
+```java
      // These next 5 lines calculate the net pay
         deductions = ...;
         taxes = ...;
         pension = ...;
         gross = ...;
         netPay = gross - (deductions + taxes + pension);
+```
 @snapend
 ---
 ## Benefits of Extract Method
@@ -255,6 +263,22 @@ public void processSomething() {
 - if then else statements
 - Loops
 - Loop bodies (streams tend to invalidate this statement)
+---
+## Watch for these code smells
+- Methods don't look like valid verbs for this object.
+- too many parameters to a method - Consider extract class
+- making decisions in one class based on the data of another class
+  - Not DTO's of course.
+- superclass bloat - it is easy to reuse these methods, so let's put them in a superclass
+- Utility classes
+---
+## Candidates for Extract Class
+- Duplicate code
+- Many methods that are only there to support one public API.
+  - This can happen after you refactor a public API into many smaller methods.
+- The same parameter being passed down throughout the same method chain.
+- Too many parameters to a method
+
 
 ---
 @snap[north-east span-25 text-05  text-left text-yellow]
@@ -263,7 +287,7 @@ Consider if then else
 @snap[north-west span-75]
 ```java
 public double getAmount() {
-    // Some code here calculate base and other stuff.
+    // Some code here to calculate base and other stuff.
     // ...
     // ...
 	double premium;
@@ -280,7 +304,7 @@ public double getAmount() {
 ---
 ```java
 public double getAmount() {
-    // Some code here calculate other stuff.
+    // Some code here to calculate other stuff.
     // ...
     // ...
 	double premium = getPremium();
@@ -295,107 +319,95 @@ private double getPremium() {
 ```
 @[10-12](Note: no else)
 ---
-@snap[north-east span-25 text-05  text-left text-yellow]
-Consider loops and loop bodies
-@snapend
-@snap[north-west span-75]
-```java
-public double getNetWorth(List <Account> accounts) {
-	double total, networth, fees, admin;
-    // Some code here calculate fees and admin.
-    // ...
-    // ...
-	for (Account account: accounts) {
-        if (account.getType() == CREDIT)
-            total -= account.getBalance();
-        else
-            total += account.getBalance();
-	}
-	return total + fees + admin + networth
-}
-```
-@[6-13](if you were to extract (method) these lines - how many parms would be proposed?)
-@snapend
----
-@snap[north-east span-25 text-05  text-left text-yellow]
-Declare Variables where they are needed
-@snapend
-@snap[north-west span-75]
-```java
-public double getNetWorth(List <Account> accounts) {
-	double networth, fees, admin;
-    // Some code here calculate fees and admin.
-    // ...
-    // ...
-    double total;
-	for (Account account: accounts) {
-        if (account.getType() == CREDIT) {
-            total -= account.getBalance();
-        }
-        else {
-            total += account.getBalance();
-        }
-	}
-	return total + fees + admin + networth
-}
-```
-@[6-14](if you were to extract (method) these lines - how many parms would be proposed?)
-@snapend
----
-@snap[north-east span-25 text-05  text-left text-yellow]
-Consider loops and loop bodies
-@snapend
-@snap[north-west span-75]
-```java
-public double getNetWorth(List <Account> accounts) {
-	double networth, fees, admin;
-    // Lots more code here calculate fees and admin.
-    // ...
-	return getTotal() + fees + admin + networth
-}
-
-private double getTotal(List<Account> accounts) {
-    double total = 0.0;
-    for (Account account: accounts)
-        //From previous refactoring we extracted this
-        total += getAmountToBeAdded(account);
-}
-
-private double getAmountToBeAdded(Account account) {
-    if (account.getType() == CREDIT) {
-        return -account.getBalance();
-    return account.getBalance();
-    }
-}
-```
-@[14](Poorly named - but this is a fictitious scenario)
-@snapend
----
 @snap[north-east span-10 text-05  text-left text-yellow]
-And finally
+Consider loops and loop bodies
 @snapend
 @snap[north-west span-90]
 ```java
-public double getNetWorth(List <Account> accounts) {
-    // like the language was designed
-    // for the problem.
-	 return getTotal() + getFees() + getAdmin() + getNetworth();
-}
-
-private double getTotal(List<Account> accounts) {
-    double total = 0.0;
-    for (Account account: accounts)
-        //From previous refactoring we extracted this
-        total += getAmountToBeAdded(account);
-}
-
-private double getAmountToBeAdded(Account account) {
-    if (account.getType() == CREDIT) {
-        return -account.getBalance();
-    return account.getBalance();
+public class Customer {
+private List<Account> accounts;
+public double getBalance() {
+  double balance = 0.0;
+  for (Account account: accounts) {
+    for (Transaction transaction: account.getTransactions()){
+      if (transaction.getType().equals("CREDIT"))
+        balance -= transaction.getAmount();
+      else
+        balance += transaction.getAmount();
     }
+  }
+  return balance;
 }
 ```
+@[6-11](extract this loop and pass an account)
+@snapend
+
+---
+@snap[north-east span-10 text-05  text-left text-yellow]
+Consider loops and loop bodies
+@snapend
+@snap[north-west span-90]
+```java
+public class Customer {
+private List<Account> accounts;
+public double getBalance() {
+    double balance = 0.0;
+    for (Account account: accounts) {
+        balance += getBalanceFor(account);
+    }
+    return balance;
+}
+
+public double getBalanceFor(Account account) {
+    double balance = 0.0;
+    for (Transaction transaction: account.getTransactions()) {
+        if (transaction.getType().equals("CREDIT"))
+            balance -= transaction.getAmount();
+        else
+            balance += transaction.getAmount();
+    }
+    return balance;
+}
+```
+@[9-11](This is better but it still smells.)
+@[13-13](We treat the Account class like data)
+@[14-15](We treat the Transaction class like data)
+@[14](Constant that should be called CREDIT_TRANSACTION)
+@snapend
+---
+
+@snap[north-east span-10 text-05 text-left text-yellow]
+Delegate the behavior to where it belongs
+@snapend
+@snap[north-west text-06 span-90]
+```java
+public class Customer {
+    public double getBalance() {
+      double balance = 0.0;
+      for (Account account: accounts)
+          balance += account.getBalance();
+      return balance;
+}
+public class Account {
+    List<Transaction> transactions;
+    public double getBalance() {
+      double balance = 0.0;
+      for (Transaction transaction: transactions)
+          balance += transaction.getBalance();
+      return balance;
+    }  // ...
+public class Transaction {
+    public double getBalance() {
+      double balance = 0.0;
+      if (getType().equals("CREDIT"))
+        return -getAmount();
+      return getAmount();
+    }
+```
+@[2,10,17](These all turned into polymorphic GETTERS )
+@[4-6](Customer knows nothing about what makes up the balance of an account )
+@[12-14](Account knows nothing about what makes up the balance of a Transaction)
+@[19-21](The logic that makes up a balance of a Transaction is encapsulated where it should be)
 @snapend
 ---
 ## Comments
@@ -509,7 +521,9 @@ Exercise
 - Refactor the method moveTo in class Rook - Use the guidelines from previous slide
     - After each refactor ***commit*** to show your thought process.
     - Make sure the tests still run
-    - Push when you are done, if you would like me to provide feedback.
+    - Push when you are done, I will provide feedback
+    - Now implement the moveTo methods in Bishop and see if you need to refactor further
+    - Now implement the moveTo methods in Knight and see if you need to refactor further
 - You can do as much or as little as you want. Since ...
 @snapend
 ---

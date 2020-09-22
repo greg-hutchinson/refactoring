@@ -17,3 +17,4 @@ logo             : assets/img/logo.jpg
 logo-position    : top-left
 layout           : top
 # PITCHME-DOT-YAML-SETTINGS-THEME-BUILDER-GENERATED-END
+mathjax : TeX-MML-AM_HTMLorMML-full

@@ -1,5 +1,4 @@
 package ca.attractors.accounting;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,6 +26,39 @@ public class Customer {
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("Summary for customer: " + name + "\n");
+        String currentAccountType = null;
+        for (Account account: getSortedAccounts()) {
+            currentAccountType = possibleHeadingBreak(buffer, currentAccountType, account);
+            appendAccountTo(account, buffer);
+        }
+        return buffer.toString();
+    }
+
+    private String possibleHeadingBreak(StringBuffer buffer, String currentAccountType, Account account) {
+        if (!account.getType().equals(currentAccountType)) {
+            currentAccountType = account.getType();
+            buffer.append("\n\n******************  " + currentAccountType + "  *******\n");
+        }
+        return currentAccountType;
+    }
+
+    private void appendAccountTo(Account account, StringBuffer buffer) {
+        buffer.append("\tAccount:" + account.getNumber() + "\n");
+        for (Transaction transaction: account.getTransactions()) {
+            appendTransactionTo(transaction, buffer);
+        }
+    }
+
+    private void appendTransactionTo(Transaction transaction, StringBuffer buffer) {
+        if (transaction.getType().equals("CREDIT")) {
+            buffer.append("\t\tTransaction:\t\t-" + transaction.getAmount() + "\n");
+        }
+        else {
+            buffer.append("\t\tTransaction:\t\t\t\t" + transaction.getAmount() + "\n");
+        }
+    }
+
+    private List<Account> getSortedAccounts() {
         List <Account> sortedAccounts = new ArrayList<>();
         sortedAccounts.addAll(accounts);
         sortedAccounts.sort(new Comparator<Account>() {
@@ -35,23 +67,6 @@ public class Customer {
                 return o1.getType().compareTo(o2.getType());
             }
         });
-        String currentAccountType = null;
-        for (Account account: sortedAccounts) {
-            if (!account.getType().equals(currentAccountType)) {
-                currentAccountType = account.getType();
-                buffer.append("\n\n******************  " + currentAccountType + "  *******\n");
-            }
-            buffer.append("\tAccount:" + account.getNumber() + "\n");
-            for (Transaction transaction: account.getTransactions()) {
-                if (transaction.getType().equals("CREDIT")) {
-                    buffer.append("\t\tTransaction:\t\t-" + transaction.getAmount() + "\n");
-                }
-                else {
-                    buffer.append("\t\tTransaction:\t\t\t\t" + transaction.getAmount() + "\n");
-                }
-            }
-        }
-        return buffer.toString();
+        return sortedAccounts;
     }
-
 }

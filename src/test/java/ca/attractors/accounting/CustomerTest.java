@@ -29,5 +29,6 @@ class CustomerTest {
         customer.addAccount(account3);
 
         System.out.println(customer.toString());
+
     }
 }

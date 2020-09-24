@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 public class Customer {
-    private List<Account> accounts;
-    private String name = "";
+    private List<Account> accounts = new ArrayList<>();;
+    private String name = "Important Customer";
     public double getBalance() {
         double balance = 0.0;
         for (Account account: accounts) {
@@ -20,11 +20,13 @@ public class Customer {
         }
         return balance;
     }
+    public void addAccount(Account account) {
+        accounts.add(account);
+    }
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("Summary for customer: " + name + "\n");
-        buffer.append("*********************************\n");
         List <Account> sortedAccounts = new ArrayList<>();
         sortedAccounts.addAll(accounts);
         sortedAccounts.sort(new Comparator<Account>() {
@@ -33,22 +35,19 @@ public class Customer {
                 return o1.getType().compareTo(o2.getType());
             }
         });
-        String oldType = null;
+        String currentAccountType = null;
         for (Account account: sortedAccounts) {
-            if (oldType == null) {
-                oldType = account.getType();
+            if (!account.getType().equals(currentAccountType)) {
+                currentAccountType = account.getType();
+                buffer.append("\n\n******************  " + currentAccountType + "  *******\n");
             }
-            if (!account.getType().equals(oldType)) {
-                buffer.append("******************\n\n\n");
-                oldType = account.getType();
-            }
-            buffer.append("\tAccount:" + account.getNumber());
+            buffer.append("\tAccount:" + account.getNumber() + "\n");
             for (Transaction transaction: account.getTransactions()) {
                 if (transaction.getType().equals("CREDIT")) {
-                    buffer.append("\t\tTransaction:\t\t-" + transaction.getAmount());
+                    buffer.append("\t\tTransaction:\t\t-" + transaction.getAmount() + "\n");
                 }
                 else {
-                    buffer.append("\t\tTransaction:\t\t\t\t" + transaction.getAmount());
+                    buffer.append("\t\tTransaction:\t\t\t\t" + transaction.getAmount() + "\n");
                 }
             }
         }

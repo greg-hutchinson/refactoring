@@ -34,7 +34,7 @@ public class Customer {
             }
         });
         String oldType = null;
-        for (Account account: accounts) {
+        for (Account account: sortedAccounts) {
             if (oldType == null) {
                 oldType = account.getType();
             }

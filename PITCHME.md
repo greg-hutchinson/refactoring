@@ -147,10 +147,10 @@ Verb: to restructure software by applying a series of refactorings without chang
 - be <= 10 lines of code
 - not be ***wider*** than 100 characters
 - follow good naming patterns
-
+- and ideally - will read like the language was designed for the problem
 @snapend
 @snap[south text-06 text-center span-100 ]
-- remember these are ***guidelines***
+Remember - these are ***guidelines***
 @snapend
 
 ---
@@ -233,6 +233,7 @@ public void processSomething() {
 - Change Method Signature
 - Extract Class, Superclass, Interface
 - Pull Up, Push Down
+- Move instance method
 
 ---
 ## Refactoring - Extract Method
@@ -262,7 +263,7 @@ public void processSomething() {
 - Duplicate code
 - if then else statements
 - Loops
-- Loop bodies (streams tend to invalidate this statement)
+- Loop bodies (streams tend to invalidate this statement a bit)
 ---
 ## Watch for these code smells
 - Methods don't look like valid verbs for this object.
@@ -357,25 +358,28 @@ public double getBalance() {
     }
     return balance;
 }
-
 public double getBalanceFor(Account account) {
     double balance = 0.0;
-    for (Transaction transaction: account.getTransactions()) {
-        if (transaction.getType().equals("CREDIT"))
-            balance -= transaction.getAmount();
-        else
-            balance += transaction.getAmount();
-    }
+    for (Transaction transaction: account.getTransactions())
+        balance += getBalanceFor(transaction)
     return balance;
 }
+public double getBalanceFor(Transaction transaction) {
+    if (transaction.getType().equals("CREDIT"))
+      return -transaction.getAmount();
+    return transaction.getAmount();
+}
 ```
-@[9-11](This is better but it still smells.)
-@[13-13](We treat the Account class like data)
-@[14-15](We treat the Transaction class like data)
-@[14](Constant that should be called CREDIT_TRANSACTION)
+@[10, 16](This is better but it still smells.)
+@[12](We treat the Account class like data)
+@[17-19](We treat the Transaction class like data)
+@[17](Constant that should be called CREDIT_TRANSACTION)
 @snapend
 ---
+# Heuristic
+If you are using the class only for its data, consider delegating to the class itself
 
+---
 @snap[north-east span-10 text-05 text-left text-yellow]
 Delegate the behavior to where it belongs
 @snapend
@@ -522,8 +526,9 @@ Exercise
     - After each refactor ***commit*** to show your thought process.
     - Make sure the tests still run
     - Push when you are done, I will provide feedback
-    - Now implement the moveTo methods in Bishop and see if you need to refactor further
-    - Now implement the moveTo methods in Knight and see if you need to refactor further
+    - Now create Test cases for Bishop and implement the required methods
+    - Now create Test cases for Knight and implement the required methods
+    - After you are done, see if you need to refactor again
 - You can do as much or as little as you want. Since ...
 @snapend
 ---

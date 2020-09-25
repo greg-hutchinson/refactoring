@@ -96,10 +96,7 @@ public boolean isBlackJack() {
 @[10-12](this smells - why?)
 ---
 ```Java
-// You can call it beautiful code when the code also
-// makes it look like the language was made for the problem.
-// I.e. A blackJack is when there is
-// only 2 cards and when the total is 21
+// You can call it beautiful code when the code ...
 
 public boolean isBlackJack() {
     return getNumberOfCards() == 2 && getTotal() == 21;
@@ -272,6 +269,7 @@ public void processSomething() {
   - Not DTO's of course.
 - superclass bloat - it is easy to reuse these methods, so let's put them in a superclass
 - Utility classes
+- Method names (usually verbs) don't seem to make sense in context of the Class (noun) 
 ---
 ## Candidates for Extract Class
 - Duplicate code

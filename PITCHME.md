@@ -259,6 +259,7 @@ public void processSomething() {
 ## Candidates for Extract Method
 - Duplicate code
 - if then else statements
+- Chunks of code within a method that do a piece of work
 - Loops
 - Loop bodies (streams tend to invalidate this statement a bit)
 ---
@@ -269,7 +270,7 @@ public void processSomething() {
   - Not DTO's of course.
 - superclass bloat - it is easy to reuse these methods, so let's put them in a superclass
 - Utility classes
-- Method names (usually verbs) don't seem to make sense in context of the Class (noun) 
+- Method names (usually verbs) don't seem to make sense in context of the Class (noun)
 ---
 ## Candidates for Extract Class
 - Duplicate code
@@ -313,7 +314,7 @@ public double getAmount() {
 private double getPremium() {
     if (age < 16)
 	    return 1.5;
-    return premium = 1.0;
+    return 1.0;
 }
 ```
 @[10-12](Note: no else)
@@ -540,3 +541,18 @@ Exercise
 @snap[midpoint text-09 text-center span-100 ]
 # Thank You
 @snapend
+
+---
+So imagine the following dialog between a Developer and a Chessmaster
+
+Developer: Tell me at a high level how pieces move in the game of chess.
+
+Chessmaster: Well, if it is a valid move for the piece, the piece is moved to the new position.
+
+Developer: ok, now add some details. What is a valid move for a piece?
+
+Chessmaster: That depends on each piece. For example, if the piece is a
+- Rook - then a valid move is if it is Horizontal or Vertical
+- Bishop - then a valid move is if it is a diagonal direction
+- Knight - then a valid move is if it is an L shaped move. 1 Diagonal Square and 1 horizontal or 1 Vertical
+Don Mayer - Olivia

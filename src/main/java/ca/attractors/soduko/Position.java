@@ -78,7 +78,7 @@ public enum Position {
     }
 
     private static Map<Position, List<Position>> boxMap = new HashMap<>();
-\
+
     public static List<Position> getBoxContainingPosition(Position position) {
         if (boxMap.containsKey(position))
             return boxMap.get(position);

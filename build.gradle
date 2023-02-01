@@ -1,0 +1,97 @@
+plugins {
+	id 'org.asciidoctor.jvm.gems' version '3.3.0'
+	id 'org.asciidoctor.jvm.revealjs' version '3.3.0'
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'java'
+
+group = 'ca.attractors.refactor'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+revealjs {
+	version = '3.1.0'
+
+	templateGitHub {
+		organisation = 'hakimel'
+		repository = 'reveal.js'
+		tag = '3.9.1'
+	}
+}
+
+asciidoctorRevealJs {
+	sourceDir file("src/docs/asciidoc")
+
+	baseDirFollowsSourceFile()
+
+	resources {
+		from("${sourceDir}/images") {
+			include '**'
+			into 'images'
+		}
+	}
+
+	attributes 'build-gradle': file('build.gradle'),
+			'endpoint-url': 'http://example.org',
+			'source-highlighter': 'coderay',
+			'coderay-css': 'style',
+			'imagesdir': './images',
+			'toc': 'left',
+			'icons': 'font',
+			'setanchors': '',
+			'idprefix': 'slide-',
+			'idseparator': '-',
+			'docinfo': 'shared',
+			'revealjs_theme': 'sky',
+			'revealjs_transition': 'linear',
+			'revealjs_history': 'true',
+			'revealjs_slideNumber': 'true'
+}
+
+
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+//	jcenter()
+	ruby {
+		gems()
+	}
+//	maven {
+//		url "https://plugins.gradle.org/m2/"
+//	}
+	mavenCentral()
+
+}
+
+dependencies {
+	implementation 'org.asciidoctor:asciidoctorj:2.5.7'
+    implementation 'org.testng:testng:7.1.0'
+//	compileOnly 'org.projectlombok:lombok:1.18.24'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+}
+
+test {
+	useJUnitPlatform()
+}
+
+
+task asciidoctor(dependsOn: asciidoctorRevealJs)

@@ -1,0 +1,959 @@
+= Refactoring
+:revealjs_theme: sky
+:revealjs_hash: true
+:revealjs_width: 1420
+:revealjs_height: 800
+:icons: font
+:figure-caption!:
+:stem: 
+:tip-caption: \uD83D\uDCA1
+:highlightjs-languages: java
+:source-highlighter: highlightjs
+:customcss: styles/greg.css
+:center: false 
+
+
+ifndef::partials[:partials: partials]
+ifndef::imagesdir[:imagesdir: images]
+// :title-slide-background-image: chessboard.png
+
+## Introduction
+
+## Introduce yourself
+- Name / Current Job role
+- Years of experience
+- What you like to do in your spare time
+
+
+## What is Refactoring
+
+[quote, Martin Fowler, Refactoring]
+Refactoring is a disciplined technique for restructuring an existing body of code, altering its internal structure without changing its external behavior.
+
+
+## Where does the term Refactor come from?
+
+
+[.columns]
+
+## Factor (from Mathematics)
+
+[.column.is-two-thirds]
+image::factor.png[factor.png,640,480]
+
+[.column.is-one-third]
+Factoring consists of writing a number or another mathematical object as a product of several factors. +
+ + 
+So, re-factoring is the art of factoring multiple times.
+
+## Why Refactor?? 
+image::zuericher-geschnetzeltes-mit-spaetzle-rezept.jpeg[spaetzli,640,480]
+Because of the Spätzli ...
+
+## Spätzli recipie
+I don't coook often but when I do I like it when it is simpel to make and prepare. Here would be how to make it. Make sure **to mix** the 2 cups of Flour and Salt and The cream mixture together. Then let it stand for 30 minutes. But before you do either of these Things, make sure that you mix the 3 eggs and the 1/2 cup of cream TOGETHER first. This is called the "cream mixture". Then start at the "Make sure to..." sentence. This will serve 3.4 people. After it has **Stood** for 40 minutes then run it through a sieve into the water. Use a spatula to push the dog through the holes. Oh yes - the water should be salted and brought to a boil before doing this. After all the noodels are "Swimming on top" it is ready to put in the frying pan for 4-5 minutes. 2 tsps of butter smelted into the frying pan first. Serve with Zürich Geschnetzeltes
+
+[%step]
+Comments??
+
+## Why Refactor?
+[%step]
+* Easier to read/maintain/understand
+* Easier to Enhance
+* Whose it for?
+[%step]
+** It's for the next reader
+
+[.columns]
+## Definition of Clean Code
+
+[.column.is-one-third]
+image::dave-thomas.png[dave-thomas.png,640,480]
+
+[quote, Dave Thomas]
+Clean code can be read and enhanced by a developer other than its original Author.
+
+[.columns]
+## Definition of Clean Code
+
+image::greg-hutchinson.png[greg-hutchinson.png,640,480]
+
+[quote, Greg Hutchinson]
+A team has achieved clean code when all classes appear as though they have been written by the same developer.
+
+
+[.columns]
+## Definition of Clean Code
+[.column.is-one-third]
+
+image::ward-cunningham.png[ward-cunningham.png,640,480]
+
+[.column.is-two-thirds]
+[quote, Ward Cunningham, Extreme Programming]
+You know you are working on clean code when each routine you read turns out to be pretty much what you expected. You can call it beautiful code when the code also makes it look like the language was made for the problem.
+
+
+
+## What does Ward Mean?  
+Our Requirements
+
+- Assume we are writing a Blackjack playing application.
+- We have designed a class called BlackjackHand which will evaluate what the total of the current cards in the hand are.
+- It also needs to know if the current cards in the hand consistute a "Blackjack" since a "Blackjack" pays 3:2.
+- A blackJack is when there are only 2 cards and the total is 21 
+- Classes are - Deck, Card, BlackjackHand
+
+[.columns]
+## Olivia
+[.column.is-two-thirds]
+image::olivia-in-dress.jpg[Livie,640,640]
+
+How did this get here?
+
+### Would you rather read this?
+[source,java]
+----
+public boolean isBlackJack() {      <1>
+    if (cards.size() == 2) {
+        int value = 0;
+        for (Card card : cards) {
+            int temp = card.getIntValue();
+            if (temp >= 10)  
+                temp = 10;
+            if (temp == 1)  
+                temp =  11;
+            value += temp;
+        }
+        return value == 21;
+    }
+    else                            <2>
+        return false;
+}
+----
+
+
+[source,java,highlight='2']
+----
+public boolean isBlackJack() {
+    return getNumberOfCards() == 2 && getTotal() == 21; 
+}
+----
+You can call it beautiful code when the code 
+looks like the language was made for the problem
+
+
+[%step]
+[source,java]
+----
+public int getTotal() { 
+    int value = 0;             
+    for (Card card : cards) {
+        int temp = card.getIntValue();
+        if (temp >= 10)   
+            temp = 10;
+        if (temp == 1)   
+            temp =  11;
+        value += temp;
+    }
+    return value;
+}
+----
+
+
+### Scenario 1 
+If the code was well designed to begin with will we ever have to refactor it again?
+
+image::little-dog-fence.jpeg[little-dog,640,480]
+
+### Scenario 2 
+When is the right time to refactor?
+
+image::balance.jpeg[balance.jpeg,640,480]
+
+### Scenario 3 
+Isn't the cost of refactoring later the same as refactoring now?
+
+image::why-so-expensive.png[why-so-expensive.png,640,480]
+
+
+### JUnit - Unit Testing.
+Leap Years
+
+So remember. To decide if a year is a leap year we use this algorithm:
+- it is evenly divisible by 400 (no remainder), it is a leap year.
+- if after that, it is evenly divisible by 100, it is not a leap year.
+- if after that, it is evenly divisible by 4, it is a leap year.
+- if after that, it is not a leap year.
+
+So now we need to find years that will make good test candidates to verify the above
+
+
+
+### Questions
+image::thank-you.jpg[thanks,640,480]
+
+[%notitle]
+## What does Ward Mean?
+[source,java,highlight='1-16|14-15']
+----
+public boolean isBlackJack() {      <1>
+    if (cards.size() == 2) {
+        int value = 0;
+        for (Card card : cards) {
+            int temp = card.getIntValue();
+            if (temp >= 10)  
+                temp = 10;
+            if (temp == 1)  
+                temp =  11;
+            value += temp;
+        }
+        return value == 21;
+    }
+    else                            <2>
+        return false;
+}
+----
+<1> This works, but this is just straight coding (i.e. all the details are in the method)
+<2> else is a long way away from the if and only returns
+
+[%notitle]
+## What does Ward Mean?
+[source,java,highlight='2-3|5-14']
+----
+public boolean isBlackJack() {      
+    if (cards.size() != 2)  <1> 
+        return false;   
+
+    int value = 0;          <2>
+    for (Card card : cards) {
+        int temp = card.getIntValue();
+        if (temp >= 10)   
+            temp = 10;
+        if (temp == 1)   
+            temp =  11;
+        value += temp;
+    }
+    return value == 21;     
+}
+----
+
+<1> Not a blackjack - return fast - no reason to scan further
+<2> The rest deals with calculating a raw total (Refactor the rest)
+
+
+[%notitle]
+## What does Ward Mean?
+[source,java]
+----
+public boolean isBlackJack() {      
+    if (cards.size() != 2)  <1> 
+        return false;   
+    return getRawTotal() == 21; <2>
+}
+
+public int getRawTotal() {      <3>
+    int value = 0;             
+    for (Card card : cards) {
+        int temp = card.getIntValue();
+        if (temp >= 10)   
+            temp = 10;
+        if (temp == 1)   
+            temp =  11;
+        value += temp;
+    }
+    return value;
+}
+----
+
+<1> Not a blackjack - return fast - no reason to scan further
+<2> Refactor - extract method
+<3> Adds a new method. 
+
+## Beautiful Code
+You can call it beautiful code when the code 
+looks like the language was made for the problem +
+ +
+
+- A blackJack is when there are only 2 cards and the total is 21
+
+[source,java,highlight='2']
+----
+public boolean isBlackJack() {
+    return getNumberOfCards() == 2 && getTotal() == 21; 
+}
+----
+
+
+## Simple Guidelines to Align To
+What does **easier to understand** mean?
+
+
+[%step]
+- Methods with **fewer parameters** are easier to understand than those with more parameters - (Nil/Mon/Dy/Tri/Poly) adic
+- Methods with **less lines of code** are easier to understand than methods with more lines of code
+- Methods with **no conditional logic** are easier to understand than methods with conditional logic
+- Methods with **no loops** are easier to understand than methods with loops
+- Methods with **shorter lines** are easier to understand than longer lines
+- Methods that follow a **naming pattern** are easier to understand than ones that are unique (Example - getters)
+
+## Properly Factored Code should strive for:
+
+* no more than 1 level of indentation
+* have < 3 parameters in every method
+* be < n lines of code - where n = 10
+* not be **wider** than 100 characters
+* good naming patterns
+* and ideally ... 
+[%step]
+** will read like the language was designed for the problem
+
+[%step]
+But please remember - these are **guidelines**
+
+
+## Clean Code
+### Boy Scout Rule
+[quote, Robert Stephenson Smyth Baden-Powell, "Farewell Message to Scouts"]
+
+Try and leave this world better than you found it or 
+Leave the campground cleaner that you found it.
+
+### Meaningful Names
+#### Use Intention Revealing Names - Classes, Methods, Variables
+
+[source,java]
+----
+double txRt;
+int dysYr;
+ChsBrd chsBrd;
+----
+What are these names?
+
+### Use Intention Revealing Names
+[source,java]
+----
+public List<int[]> getThings() {
+    List<int[]> list1 = new ArrayList<int[]>();    
+    for (int[] x : theList)                     <1>
+        if (x[0] == 4)                          <2><3>
+            list1.add(x);
+    return list1;                               <4>
+}
+----
+<1> What kinds of things are in theList?
+<2> What is the significance of the zeroth item?
+<3> What is the significance of the number 4?
+<4> How would I use the list being returned?
+The answers could have been present in the code.
+
+### Use Intention Revealing Names
+* Assume that we are working on a MineSweeper game
+* Just by giving the concepts proper names, the code is more readable 
+
+[source,java]
+----
+public List<int[]> getFlaggedCells() {
+    List<int[]> flaggedCells = new ArrayList<int[]>();    
+    for (int[] cell : gameBoard)               
+        if (cell[STATUS_VALUE] == FLAGGED)                          
+            flaggedCells.add(cell);
+    return flaggedCells;                         
+}
+----
+
+### Avoid Disinformation - AntiPattern
+accountList
+
+### Make Meaningful Distinctions - Antipattern
+* Prefixing class names, method names or variable names
+* Using words like Data or Info as suffixes
+
+
+### Use Pronouncable Names
+Compare
+
+[source,java]
+----
+class DtaRcrd102 {
+    private Date genymdhms;
+    private Date modymdhms;
+    private final String pszint = "102";
+}
+
+class Customer {
+    private Date generationTimestamp;
+    private Date modificationTimestamp;
+    private final String RECORD_ID = "102";
+}
+----
+
+### Class Names
+* Classes should have a noun or a noun phrase name like 
+Customer, WikiPage, Account, AddressParser.
+* Avoid name that include Manager, Processor, Data or Info.
+* Normally, a class name should not be a verb
+* If your objects are value type objects, make them immutable
+
+### Design the class Fraction
+* What are the variables in this class?
+* Design the method multiplyBy(Fraction fraction) with class Fraction
+
+Here is the test case
+
+[source,java]
+----
+class FractionTest {
+    void multiplyBy() {
+        Fraction1 fraction1 = new Fraction(1,2);
+        Fraction2 fraction2 = new Fraction(1,3); 
+        fraction1.multiplyBy(fraction2);
+        assertEquals(1, fraction1.getNumerator());
+        assertEquals(6, fraction1.getDenominator());
+    }
+}
+
+class Fraction {
+    ...
+}
+----
+
+Any Smells with this?
+
+
+
+### Functions/Methods Size
+* Rule 1 of Method size - they should be small
+[%step]
+* Rule 2 of Method size - they should be smaller than that
+
+[.notes]
+****
+How many Lines of Code in a method?
+*  < 10?
+* Should fit easily on one screen
+* Horizontal scrolling is not allowed
+****
+
+### Functions/Methods (Guideline)
+- Should be verb or verb phrases like postPayment, deletePage or save
+- Accessor according to Javabean standard (get/set)
+- Should do one and only one thing
+- Should contain the same level of abstraction
+
+### One Level of Abstractions
+
+[source,java]
+----
+public void doSomething() {
+    initializeSomething();      <1>
+	for (int i = 0;i<7;i++)     <2>
+		if (get ....)       <2>
+		else {/* */}        <2>
+	cleanUpSomething();         <1>
+}
+----
+<1> High level of abstraction
+<2> Detailed level of abstraction
+
+
+### Better
+
+[source,java]
+----
+public void doSomething() {
+  initializeSomething();                <1>
+  processDaysOfWeek();                  <1>
+  cleanUpSomething();                   <1>
+}
+public void processDaysOfWeek() {
+	for (int i = 0;i<7;i++)         <2> 
+            processDayOfWeek(days.get(i));
+}
+public void processDayOfWeek(Day day) {
+    if (day == "Wed")              
+            // code for Wed
+    else
+            // code for every other day
+}
+----
+
+<1> Same (high) level of abstraction
+<2> Same (detail) level of abstraction
+
+Note: All methods only have 1 level of indentation and there is only 1 level of indentation
+
+### Arguments to Methods < 3 
+Consider the following method
+[source,java]
+----
+public void draw(int startX, int startY, int width, int height) {
+    ...
+}
+----
+How should we refactor?
+
+### Arguments to Methods < 3
+Quite often the parameters represent some other object
+
+[source,java]
+----
+Rectangle rectangle = new Rectangle(startX, startY, width, height);
+
+    ...
+
+public void draw(rectangle) {
+
+}
+----
+
+### Arguments to Methods - Avoid boolean arguments
+This already implies that the function is doing more than one thing. 
+
+* Better to make 2 methods
+
+### Methods - Should not have side effects
+Consider the following code
+[source,java]
+----
+public boolean checkCredentials(String userName, String password) {
+    User user = UserGateway.findByUserName(userName);
+    if (user == null)
+        return false;
+    String codePhrase = user.getDecryptedPassord();
+    if (!(codePhrase.equals(password))) 
+        return false;
+    Session.initialize();
+    return true;
+}
+
+----
+What's wrong with this?
+
+
+### Temporary Variables
+
+* Declare them just before they are needed. Minimize scope.
+* Helps to understand where the variable is being used.
+* Facilitates better Refactoring
+
+[%step]
+Note: Anti Pattern +
+Declare all variables at the top of the method giving method scope
+
+
+## Name some of the Common Refactorings
+
+## Names of Common Refactorings
+- Rename (Class, File, Method, Variable)
+- Extract Method
+- Change Method Signature
+- Extract Class, Superclass, Interface
+- Pull Up, Push Down
+- Move instance method
+
+
+## Refactoring - Extract Method
+- To turn part of a large method into it's own method.
+- This is the most used refactoring tool
+- Use it to maintain the same level of abstraction
+- Use it every time you feel like documenting the internals of a method (I.e
+
+
+[source,java]
+----
+// These next 5 lines calculate the net pay
+    deductions = ...;
+    taxes = ...;
+    pension = ...;
+    gross = ...;
+    netPay = gross - (deductions + taxes + pension);
+----
+
+## Benefits of Extract Method
+- Keeps code at the same level of abstraction.
+- Usually removes 1 level of indentation. This is a **key** point.
+  - This is what enables code to only have 1 level of indentation.
+
+[.columns]
+## Candidates for Extract Method
+- if then else statements
+- Chunks of code within a method that do a piece of work
+- Loops
+- Loop bodies (streams tend to invalidate this statement a bit)
+- And of course, ... 
+
+## Duplicate code
+
+Always remember the DRY principle.
+
+Don't repeat yourself
+
+
+## Watch for these code smells
+- Methods don't look like valid verbs for this object.
+- too many parameters to a method - Consider extract class
+- making decisions in one class based on the data of another class
+  - Not DTO's of course.
+- superclass bloat - it is easy to reuse these methods, so let's put them in a superclass
+- Utility classes
+- Method names (usually verbs) don't seem to make sense in context of the Class (noun)
+
+## Candidates for Extract Class
+- Many methods that are only there to support one public API.
+  - This can happen after you refactor a public API into many smaller methods.
+- The same parameter being passed down throughout the same method chain.
+- Too many parameters to a method
+- And ...
+
+## Candidates for Extract Class
+
+**Duplicate code**
+
+[quote, Robert Martin, "Clean Code"]
+Duplication may be the root of all evil in software.
+
+
+## Consider - if then else
+
+[source,java]
+----
+public double getAmount() {
+    
+    double c = age / 2 * getMultiplyer();
+    base = c * getD():
+
+    double premium;  /* Easier to Refactor  */
+    if (age < 16)
+        premium = 1.5;
+    else
+        premium = 1.0
+    return premium * base;
+}
+----
+Heuristic - I rarely write code with an else statement. +
+Why?
+
+## Consider if then else
+[source,java]
+----
+public double getAmount() {
+    double c = age / 2 * getMultiplyer();
+    base = c * getD():
+    double premium = getPremium();
+    return premium * base;
+}
+
+private double getPremium() {
+    if (age < 16)
+	    return 1.5;
+    return 1.0;            
+}
+----
+
+## Consider loops and loop bodies
+[source,java]
+----
+public class Customer {
+private List<Account> accounts;
+public double getBalance() {
+  double balance = 0.0;
+  for (Account account: accounts) {
+    for (Transaction transaction: account.getTransactions()){ <1>
+      if (transaction.getType().equals("CREDIT"))
+        balance -= transaction.getAmount();
+      else
+        balance += transaction.getAmount();
+    }
+  }
+  return balance;
+}
+}
+----
+<1> extract this loop and pass an account
+
+
+
+## Consider loops and loop bodies
+
+[source,java]
+----
+public class Customer {
+private List<Account> accounts;
+public double getBalance() {
+    double balance = 0.0;
+    for (Account account: accounts) {
+        balance += getBalanceFor(account);            
+    }
+    return balance;
+}
+public double getBalanceFor(Account account) {          <1>
+    double balance = 0.0;
+    for (Transaction transaction: account.getTransactions())
+        balance += getBalanceFor(transaction)
+    return balance;
+}
+public double getBalanceFor(Transaction transaction) {  <2>
+    if (transaction.getType().equals("CREDIT"))         <3>
+      return -transaction.getAmount();
+    return transaction.getAmount();
+}}
+----
+<1> We treat the Account class like data
+<2> We treat the Transaction class like data
+<3> Constant that should be called CREDIT_TRANSACTION
+
+
+## Delegate the behavior to where it belongs
+[source,java]
+----
+public class Customer {
+    public double getBalance() {                <1>
+      double balance = 0.0;
+      for (Account account: accounts)
+          balance += account.getBalance();      <2>
+      return balance;
+}}
+
+public class Account {
+    List<Transaction> transactions;
+    public double getBalance() {                <1>
+      double balance = 0.0;
+      for (Transaction transaction: transactions)
+          balance += transaction.getBalance();  <2>
+      return balance;
+    }  // ...
+}
+
+public class Transaction {
+    public double getBalance() {                <1>
+      double balance = 0.0;
+      if (getType().equals("CREDIT"))
+        return -getAmount();
+      return getAmount();
+    }
+}
+----
+
+<1> These all turned into polymorphic GETTERS
+<2> Customer/Account knows nothing about what makes up the balance of an account 
+
+## Extract Class - When to use?
+If you have refactored a method and now these other methods are only there to support the original method, consider making an inner class.
+
+## Extract Class - Example
+[source,java]
+----
+/* Note: The following 4 methods belong together */
+public String toString() {
+    StringBuilder builder = new StringBuilder(getFrame());
+    for (int y = 7; y >= 0; y--)
+        doPositionsForRow(y);
+    return builder.toString();
+}
+private void doPositionsForRow(int y) {
+    for (int x = 0; x <= 7; x++)
+        addCellToBuilder(y, x);
+    builder.append("|\n" + getFrame());
+}
+private void addCellToBuilder(StringBuilder builder, int y, int x) {
+    Position position = Position.getPositionFor(x, y);
+    builder.append("|");
+    builder.append(getPieceToString(getPieceAt(position)));
+}
+
+private String getFrame() { return "+----+----+----+----+----+----+----+----+\n";}
+
+String getPieceToString(ChessPiece piece) {
+    if (piece == null) 
+        return "    ";
+    return " " + piece.toSimpleString() + " ";
+}
+----
+
+## Using Inner Class
+[source,java]
+----
+    public String toString() {
+        return new ToStringBuilder().build();                       <1>
+    }
+    private class ToStringBuilder {
+        final String FRAME =  "+----+----+----+----+----+----+----+----+\n";
+        private StringBuilder builder = new StringBuilder(FRAME);   <2> 
+        public String build() {
+            for (int y = 7; y >= 0; y--) {
+                doPositionsForRow(y);
+                builder.append("|\n" + FRAME);
+            }
+            return builder.toString();
+        }
+        private void doPositionsForRow(int y) {
+            for (int x = 0; x <= 7; x++)
+                addCellToBuilder(y, x);
+        }
+        private void addCellToBuilder(int y, int x) {               <3> 
+            Position position = Position.getPositionFor(x, y);
+            builder.append("|");
+            appendPiece(getPieceAt(position));
+        }
+        private void appendPiece(ChessPiece piece) {                <4>
+            if (piece == null)
+                builder.append( "    ");
+            else
+                builder.append(" " + piece.toSimpleString() + " ");
+        }
+    }
+----
+<1> All methods are now contained within the inner class if the class is moved, so are it's methods
+<2> Fields can be added to this class that wouldn't have made sense in the outer class
+<3> Fewer number of parameters passed to methods.
+<4> If a method is later found to be reusable from another of the outer class - move it up
+
+
+## Comments
+[quote, Robert Martin, "Clean Code"]
+The proper use of comments is to compensate for our **failure** to express ourself in code
+
+
+
+## Unit Tests - Really??? Why???
+[%step]
+- To help ensure the system works
+- Documentation on how to use the API
+- Design tool
+
+
+## Why does this "Smell"?
+[source,java]
+----
+public class RookTest {
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White, 1, 1); <1>
+    }
+    @Test
+    void moveToNonHorizontalOrNonVerticalSpot() {
+        assertFalse(rook.moveTo(2,2));
+    }
+}
+----
+<1> Mental Gymnastics - Where is this on the board?
+
+
+## Use "Domain Language" whenever possible
+
+image::chessboard.png[chessboard.png,640,480]
+
+## Use "Domain Language" whenever possible
+[source,java]
+----
+public class RookTest {
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White, 'a', 1); <1>
+    }
+    @Test
+    void moveToNonHorizontalOrVerticalSpot() {
+        assertFalse(rook.moveTo('b',9));
+    } } 
+----
+<1> Any downsides?
+
+[%step]
+Need to check for illegal arguments and throw ????
+
+## Use "Domain Language" whenever possible
+[source,java]
+----
+public class RookTest {
+    @BeforeEach
+    void initialize() {
+        chessboard = new Chessboard();
+        rook  = new Rook(chessboard, White);
+        chessboard.putPieceAt(rook, A1);    <1><2><3>
+    }
+    @Test
+    void moveToNonHorizontalOrVerticalSpot() {
+        assertFalse(rook.moveTo(C3));
+    }
+}
+----
+
+<1> How would this be possible?
+<2> Compiler enforced values
+<3> And we have captured the concept of a "Position" in one argument
+
+## And Lastly, remember
+There is an old joke about a concert violinist who got lost on his way to a performance.
+He stopped an old man on the corner and asked him how to get to Carnegie Hall.
+The old man looked at the violinist and the violin tucked under his arm, and said: 
+[%step]
+"Practice, son. Practice"
+
+
+## What I am trying to say is ...
+- Refactoring is a practiced skill. So practice. Try something. Not all refactors work out.
+- Refactoring of code is not an absolute term. In theory, you can always do more. So know when to quit.
+- One refactor will quite often lead to other ideas about refactoring.
+
+
+## Summary (And/Or Experiment)
+- Try and write methods with only 1 level of indentation
+- Methods that have the same level of abstraction
+- Method size <=15 lines of code
+- No method takes more that 3 parameters (and less is better)
+- No duplicate code
+- **Code reads like the language was designed for the problem**
+
+## Refactoring Exercises
+* Clone the repo at
+  https://github.com/greg-hutchinson/refactoring-exercise.git
+* Make a branch using your name as the branch name
+* Run all the test cases in the package Chess - make sure they all pass.
+* Understand all of the tests in RookTest.
+* Refactor the method moveTo in class Rook - Use the guidelines from previous slide
+* Look for code that has comments of // Code Smells. 
+* Refactor if you understand why it smells
+* **commit** often to show your thought process.
+* Make sure the tests still run
+* Ping me when you are done.
+* Now create Test cases for Bishop and implement the required methods
+
+## Process 
+* Now create Test cases for Knight and implement the required methods
+* After you are done, see if you need to refactor again
+* You have a couple of hours to do this.
+
+## Next Requirement 
+++++
+<details>
+  <summary>Change 1</summary>
+  <p>Can you use the Chessboard for a game of Checkers?</p>
+  <p>What needs to change?</p>
+</details>
+++++
+
+## Next Requirement 
+++++
+<details>
+  <summary>Change 2 - The Pawn</summary>
+  <p>What is different about this piece?</p>
+  <p>How does this now work?</p>
+</details>
+++++
+
+
+
+## You can do as much or as little as you want, because ...
+[%step]
+[source,java]
+----
+  public boolean wasSuccessfulRefactor() { 
+      return madeChanges() && easierToUnderstand(); 
+  } 
+----
+
+## Thank You
+
+

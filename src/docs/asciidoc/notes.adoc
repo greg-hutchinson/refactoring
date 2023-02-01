@@ -1,0 +1,19 @@
+Other Refactorings
+
+Examples - that illustrate the following
+pull-up/push down
+extract method
+etc.
+Change Signature.
+
+How to illustrate the two-way communication
+
+
+Should I remove Position
+
+
+King moves - who should know if the rook moved
+Pawn - who should know about the last piece moved?
+How are you going to keep score?
+
+

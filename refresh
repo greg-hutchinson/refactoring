@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#SRCFILE=/Users/hutchig1/Documents/git-repos/refactoring/docs/presentation.adoc
+
+echo "Watching current directory and below for changes"
+fswatch -r ./src/docs/asciidoc | (while read; do mvn; echo "Watching"; done)

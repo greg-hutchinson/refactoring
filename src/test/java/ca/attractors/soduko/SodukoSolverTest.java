@@ -31,7 +31,7 @@ public class SodukoSolverTest {
     @Test
     void solvableWithRecursion() {
         SodukoBoard.shouldPrint = false;
-        SodukoSolver sodukoSolver = getSodukoSolverFor("part-solvable-given.csv");
+        SodukoSolver sodukoSolver = SodukoSolverTest.getSodukoSolverFor("part-solvable-given.csv");
         Date start = new Date();
         SodukoBoard board  = sodukoSolver.solve(0);
         Date finish = new Date();
@@ -41,20 +41,9 @@ public class SodukoSolverTest {
     }
 
     private static SodukoSolver getSodukoSolverFor(String fileName) {
-        File file = new SodukoBoardBuilderTest().getTestFile(fileName);
+        File file = SodukoBoardBuilderTest.getTestFile(fileName);
         SodukoBoardBuilder sodukoBoardBuilder = new SodukoBoardBuilder();
         SodukoBoard board = sodukoBoardBuilder.build(file);
-        System.out.println("New board\n\n" + board);
-        System.out.println("-----");
-        SodukoSolver sodukoSolver = new SodukoSolver(board);
-        return sodukoSolver;
+        return new SodukoSolver(board);
     }
-    @Test
-    void cloningOfBoard() {
-        SodukoSolver sodukoSolver = getSodukoSolverFor("part-solvable-given.csv");
-        SodukoBoard board = sodukoSolver.getBoard();
-        SodukoBoard newBoard = new SodukoBoard(board);
- //       assertEquals(board, newBoard);
-    }
-
 }

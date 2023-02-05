@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.Math.abs;
-
 public enum Position {
     P11(1, 1),P12(1, 2),  P13(1, 3),P14(1, 4),P15(1, 5),  P16(1, 6), P17(1, 7), P18(1, 8),P19(1, 9),
     P21(2, 1),P22(2, 2),  P23(2, 3),P24(2, 4),P25(2, 5),  P26(2, 6), P27(2, 7), P28(2, 8),P29(2, 9),
@@ -28,7 +26,7 @@ public enum Position {
     }
 
     public static List<List<Position>> getAllSequences() {
-        List<List<Position>> rows = new ArrayList<List<ca.attractors.soduko.Position>>(27);
+        List<List<Position>> rows = new ArrayList<>(27);
         rows.addAll(getAllRows());
         rows.addAll(getAllColumns());
         rows.addAll(getAllBoxes());
@@ -36,24 +34,24 @@ public enum Position {
     }
 
     public static List<List<Position>> getAllRows() {
-        List<List<Position>> rows = new ArrayList<List<Position>>(9);
+        List<List<Position>> rows = new ArrayList<>(9);
         for (int i = 1; i <= 9; i++) {
             rows.add(getRowPositionsAt(i));
         }
         return rows;
     }
     public static List<List<Position>> getAllColumns() {
-        List<List<Position>> columns = new ArrayList<List<Position>>(9);
+        List<List<Position>> columns = new ArrayList<>(9);
         for (int i = 1; i <= 9; i++) {
             columns.add(getColumnPositionsAt(i));
         }
         return columns;
     }
     public static List<List<Position>> getAllBoxes() {
-        List<List<Position>> columns = new ArrayList<List<Position>>(9);
+        List<List<Position>> columns = new ArrayList<>(9);
         for (int row = 1; row <= 3; row++) {
             for (int col = 1; col <= 3; col++)
-            columns.add(getBoxPositionsAt(row,col));
+                columns.add(getBoxPositionsAt(row,col));
         }
         return columns;
     }
@@ -77,7 +75,7 @@ public enum Position {
         return getColumnPositionsAt(position.column);
     }
 
-    private static Map<Position, List<Position>> boxMap = new HashMap<>();
+    private static final Map<Position, List<Position>> boxMap = new HashMap<>();
 
     public static List<Position> getBoxContainingPosition(Position position) {
         if (boxMap.containsKey(position))

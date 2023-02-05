@@ -20,6 +20,7 @@ public class SodukoBoard {
         this.cells = cells;
     }
 
+    @SuppressWarnings("CopyConstructorMissesField")
     public SodukoBoard(SodukoBoard board) {
         this();
         for (int i = 0; i < 9; i++) {
@@ -55,9 +56,9 @@ public class SodukoBoard {
     }
 
     public void putCellContentsAt(CellContents contents, Position position) {
-        CellContents old = cells[position.getXOffset()][position.getYOffset()];
+//        CellContents old = cells[position.getXOffset()][position.getYOffset()];
         cells[position.getXOffset()][position.getYOffset()] = contents;
-        /**
+        /*
         Sequence sequence1 = this.checkAllSequences();
         if (sequence1 != null) {
             System.out.println("Something went wrong in sequence " + sequence1);

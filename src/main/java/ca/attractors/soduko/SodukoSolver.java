@@ -8,9 +8,8 @@ public class SodukoSolver {
         return board;
     }
 
-    private Map<Position, List<Sequence>> sequenceMap = new HashMap<>();
+    private final Map<Position, List<Sequence>> sequenceMap = new HashMap<>();
 
-    public static int count = 0;
     private SodukoBoard board;
 
     public SodukoSolver(SodukoBoard board) {
@@ -191,8 +190,6 @@ public class SodukoSolver {
     }
 
     private boolean doPositionInSequence(Position position, Sequence sequence, int i) {
-//        if (!board.getCellContentsAt(position).equals(new NullContent()))
-//            return false;
         if (sequence.contains(new KnownNumber(i))) {
             sequence.markEmptyCellWithNotNumber(i);
             return true;
@@ -200,11 +197,6 @@ public class SodukoSolver {
         return false;
     }
 
-    private void removeEmptyPositions(List<Position> emptyPositions) {
-        for (Position position: emptyPositions) {
-            board.putNullNumberAt(position);
-        }
-    }
 
     private Sequence getRowSequenceForPosition(Position position) {
         return new Sequence(Position.getRowPositionsAt(position.row), board);

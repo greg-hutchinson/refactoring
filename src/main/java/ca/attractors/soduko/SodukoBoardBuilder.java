@@ -1,6 +1,5 @@
 package ca.attractors.soduko;
 
-import org.asciidoctor.ast.Cell;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,12 +14,12 @@ public class SodukoBoardBuilder {
         sodukoBoard.putKnownNumberAt(1,P11);
         sodukoBoard.putKnownNumberAt(9,P24);
         sodukoBoard.putNotNumberAt(1 ,P99);
-        System.out.println(sodukoBoard.toString());
+        System.out.println(sodukoBoard);
     }
 
     public SodukoBoard build(File file) {
         List<List<String>> records = new ArrayList<>();
-        try (Scanner scanner = new Scanner(file);) {
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 records.add(getRecordFromLine(scanner.nextLine()));
             }
@@ -51,7 +50,7 @@ public class SodukoBoardBuilder {
     }
 
     private List<String> getRecordFromLine(String line) {
-        List<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
         try (Scanner rowScanner = new Scanner(line)) {
             rowScanner.useDelimiter(",");
             while (rowScanner.hasNext()) {

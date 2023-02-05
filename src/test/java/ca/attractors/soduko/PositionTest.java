@@ -2,11 +2,10 @@ package ca.attractors.soduko;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static ca.attractors.soduko.Position.*;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static ca.attractors.soduko.Position.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 

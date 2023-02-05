@@ -2,13 +2,11 @@ package ca.attractors.soduko;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions.*;
+
 import java.util.List;
 
-import static ca.attractors.chesscheckers.PieceColor.White;
-import static ca.attractors.chesscheckers.Position.A1;
-import static ca.attractors.chesscheckers.Position.D4;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 // What's wrong with this test?

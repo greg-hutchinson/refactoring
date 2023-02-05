@@ -20,7 +20,7 @@ public class Sequence {
 
     // Should never happen
     public boolean containsDuplicates() {
-        Set<KnownNumber> set = new HashSet<KnownNumber>(getKnownNumbers());
+        Set<KnownNumber> set = new HashSet<>(getKnownNumbers());
         return set.size() < getKnownNumbers().size();
     }
 

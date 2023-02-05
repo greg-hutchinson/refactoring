@@ -1,7 +1,7 @@
 package ca.attractors.soduko;
 
 public class NullContent extends  CellContents {
-    private static NullContent singleton = new NullContent();
+    private static final NullContent singleton = new NullContent();
 
     private NullContent() {
     }
@@ -10,6 +10,7 @@ public class NullContent extends  CellContents {
         return singleton;
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(Object obj) {
         return (obj == singleton);
     }

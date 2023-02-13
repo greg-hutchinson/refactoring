@@ -192,8 +192,8 @@ So now we need to find years that will make good test candidates to verify the a
 ### Questions
 image::thank-you.jpg[thanks,640,480]
 
-[%notitle]
-## What does Ward Mean?
+
+## This is EN-CODING 
 [source,java,highlight='1-16|14-15']
 ----
 public boolean isBlackJack() {      <1>
@@ -216,8 +216,8 @@ public boolean isBlackJack() {      <1>
 <1> This works, but this is just straight coding (i.e. all the details are in the method)
 <2> else is a long way away from the if and only returns
 
-[%notitle]
-## What does Ward Mean?
+
+## This is EN-CODING 
 [source,java,highlight='2-3|5-14']
 ----
 public boolean isBlackJack() {      
@@ -241,8 +241,7 @@ public boolean isBlackJack() {
 <2> The rest deals with calculating a raw total (Refactor the rest)
 
 
-[%notitle]
-## What does Ward Mean?
+## Much better, almost there ...
 [source,java]
 ----
 public boolean isBlackJack() {      

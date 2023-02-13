@@ -870,8 +870,7 @@ public class RookTest {
     @BeforeEach
     void initialize() {
         chessboard = new Chessboard();
-        rook  = new Rook(chessboard, White);
-        chessboard.putPieceAt(rook, A1);    <1><2><3>
+        rook  = new Rook(chessboard, White, A1); <1><2><3>
     }
     @Test
     void moveToNonHorizontalOrVerticalSpot() {
@@ -879,7 +878,7 @@ public class RookTest {
     }
 }
 ----
-
+[%step]
 <1> How would this be possible?
 <2> Compiler enforced values
 <3> And we have captured the concept of a "Position" in one argument
@@ -906,6 +905,34 @@ The old man looked at the violinist and the violin tucked under his arm, and sai
 - No duplicate code
 - **Code reads like the language was designed for the problem**
 
+## The Game of Chess
+
+["graphviz", "object-model.png, "alt="Object Model", width=640, height=480]
+---------------------------------------------------------------------
+digraph Chess {
+  rankdir=LR;
+  
+  node [shape = box3d]; 
+  Piece [label = "Piece\n(Interface)"];
+
+  node [shape = rectangle];
+  ChessPiece -> Board ;
+  ChessPiece -> Piece ;
+  Board -> Piece;
+  
+  Board -> Position;
+  ChessPiece -> Color;
+  ChessPiece -> Position;
+}
+---------------------------------------------------------------------
+
+## The ChessPiece Class
+* All Pieces should understand how to moveTo(Postion aNewPosition)
+
+
+## The RookTest class
+Let's take a Lookl
+
 ## Refactoring Exercises
 * Clone the repo at
   https://github.com/greg-hutchinson/refactoring-exercise.git
@@ -913,8 +940,6 @@ The old man looked at the violinist and the violin tucked under his arm, and sai
 * Run all the test cases in the package Chess - make sure they all pass.
 * Understand all of the tests in RookTest.
 * Refactor the method moveTo in class Rook - Use the guidelines from previous slide
-* Look for code that has comments of // Code Smells. 
-* Refactor if you understand why it smells
 * **commit** often to show your thought process.
 * Make sure the tests still run
 * Ping me when you are done.

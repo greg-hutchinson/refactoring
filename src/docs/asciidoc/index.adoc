@@ -926,12 +926,11 @@ digraph Chess {
 }
 ---------------------------------------------------------------------
 
-## The ChessPiece Class
-* All Pieces should understand how to moveTo(Postion aNewPosition)
-
 
 ## The RookTest class
 Let's take a Lookl
+
+
 
 ## Refactoring Exercises
 * Clone the repo at
@@ -943,31 +942,14 @@ Let's take a Lookl
 * **commit** often to show your thought process.
 * Make sure the tests still run
 * Ping me when you are done.
-* Now create Test cases for Bishop and implement the required methods
 
-## Process 
-* Now create Test cases for Knight and implement the required methods
-* After you are done, see if you need to refactor again
-* You have a couple of hours to do this.
+## Design goals
+* All Pieces should understand how to moveTo(Postion aNewPosition)
+* Remember that your Board and Piece should be Generic. I.e it should be possible to reuse
+them for a Checkboard
 
-## Next Requirement 
-++++
-<details>
-  <summary>Change 1</summary>
-  <p>Can you use the Chessboard for a game of Checkers?</p>
-  <p>What needs to change?</p>
-</details>
-++++
-
-## Next Requirement 
-++++
-<details>
-  <summary>Change 2 - The Pawn</summary>
-  <p>What is different about this piece?</p>
-  <p>How does this now work?</p>
-</details>
-++++
-
+* Now uncomment the Test cases for Queen and implement the required methods
+* You now might have some duplication in Queen and Rook. Refactor again.
 
 
 ## You can do as much or as little as you want, because ...

@@ -913,7 +913,7 @@ digraph Chess {
   rankdir=LR;
   
   node [shape = box3d]; 
-  Piece [label = "Piece\n(Interface)"];
+  Piece [label = "Piece\n(Interface?)"];
 
   node [shape = rectangle];
   ChessPiece -> Board ;

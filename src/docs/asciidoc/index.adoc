@@ -47,35 +47,41 @@ Factoring consists of writing a number or another mathematical object as a produ
  + 
 So, re-factoring is the art of factoring multiple times.
 
-## Why Refactor?? 
-image::zuericher-geschnetzeltes-mit-spaetzle-rezept.jpeg[spaetzli,640,480]
+## Why Refactor? 
+image::zuericher-geschnetzeltes-mit-spaetzle-rezept.jpeg[spaetzli,800,600]
 Because of the Spätzli ...
 
 ## Spätzli recipie
+
+[.medium]
 I don't coook often but when I do I like it when it is simpel to make and prepare. Here would be how to make it. Make sure **to mix** the 2 cups of Flour and Salt and The cream mixture together. Then let it stand for 30 minutes. But before you do either of these Things, make sure that you mix the 3 eggs and the 1/2 cup of cream TOGETHER first. This is called the "cream mixture". Then start at the "Make sure to..." sentence. This will serve 3.4 people. After it has **Stood** for 40 minutes then run it through a sieve into the water. Use a spatula to push the dog through the holes. Oh yes - the water should be salted and brought to a boil before doing this. After all the noodels are "Swimming on top" it is ready to put in the frying pan for 4-5 minutes. 2 tsps of butter smelted into the frying pan first. Serve with Zürich Geschnetzeltes
 
-[%step]
-Comments??
 
-
+[%notitle]
 ## Spätzli recipe - Refactored
+
+[.larger]
+*Spätzli Noodles*
 
 *Ingredients* 
 
 [frame=none]
+[.smaller]
 [grid=none]
 |===
-| 2 Cups of flour | 1 Tsp salt | 1/2 Cup cream 
-| 3 Eggs | 1 Tbls butter
-|
+| 3 Eggs | 1/2 Cup cream | 2 Cups of flour | 1 Tsp salt | 1 Tbsp butter
 |===
 
 *Instructions*
 
-Mix the 3 eggs and the cream together until well blended. Add the flour and salt to the liquid stirring continuously to get a nice consistent batter. Let this mixture stand for 40 mins before continuing. Bring 3 cups of salted water to a boil. Place the sieve on top of the water and pour the batter on top of the sieve. Use the spatula to push the batter through the holes. Continue this until all the batter is used up. Stir the noodles in the boiling water so that they don't stick together for about 2 minutes. Drain all the excess water from the noodles. Now in a fry pan, melt the butter and fry the noodles until they have a light golden brown color. Serve with Zürich Geschnetzeltes. 
+[.smaller]
+Mix the 3 eggs and the cream together until well blended. Add the flour and salt to this mixture, stirring continuously to get a nice consistent batter. Let this mixture stand for 40 mins before continuing. Bring 3 cups of salted water to a boil. Place the sieve with 1/4" holes on top of the pot with the water and pour the batter on top of the sieve. Use the spatula to push the batter through the holes. Continue this until all the batter is used up. Stir the noodles in the boiling water so that they don't stick together for about 2 minutes. Drain all the excess water from the noodles. Melt the butter in a frying pan and fry the noodles until they have a light golden brown color. Serve with Zürich Geschnetzeltes. 
 
+*Serves*
+[.smaller]
+4-5 portions
 
-## Why Refactor?
+## Seriously now - Why Refactor?
 [%step]
 * Easier to read/maintain/understand
 * Easier to Enhance

@@ -50,3 +50,15 @@
 .reveal .ulist.small {
   font-size: 1.7rem;
 }
+
+.larger {
+  font-size: 50pt;
+}
+
+.smaller {
+  font-size: 20pt;
+}
+
+.medium {
+  font-size: 26pt;
+}

@@ -135,10 +135,17 @@ image::olivia-in-dress.jpg[Livie,640,640]
 
 How did this get here?
 
-### Would you rather read this?
+
+[%notitle]
+### Compare
+
+[cols="a,a"]
+|====
+| Would you rather read this? | Or This? 
+|
 [source,java]
 ----
-public boolean isBlackJack() {      <1>
+public boolean isBlackJack() {    
     if (cards.size() == 2) {
         int value = 0;
         for (Card card : cards) {
@@ -151,22 +158,18 @@ public boolean isBlackJack() {      <1>
         }
         return value == 21;
     }
-    else                            <2>
+    else                           
         return false;
 }
 ----
-
-
-[source,java,highlight='2']
+|
+[source,java]
 ----
 public boolean isBlackJack() {
-    return getNumberOfCards() == 2 && getTotal() == 21; 
+    return getNumberOfCards() == 2 && 
+            getTotal() == 21; 
 }
 ----
-You can call it beautiful code when the code 
-looks like the language was made for the problem
-
-
 [%step]
 [source,java]
 ----
@@ -183,10 +186,18 @@ public int getTotal() {
     return value;
 }
 ----
+|====
+
+[.smaller]
+You can call it beautiful code when the code looks like +
+"the language was made for the problem"
+
+[.smaller]
+Remember - A blackJack is when there are only 2 cards and the total is 21 
 
 
 ### Scenario 1 
-If the code was well designed to begin with will we ever have to refactor it again?
+If the code was well designed to begin with, will we ever have to refactor it again?
 
 image::little-dog-fence.jpeg[little-dog,640,480]
 

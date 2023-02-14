@@ -18,6 +18,7 @@ ifndef::imagesdir[:imagesdir: images]
 // :title-slide-background-image: chessboard.png
 
 ## Introduction
+file:///Users/hutchig1/Documents/git-repos/agile/target/generated-slides/index.html#/_who_am_i[Me]
 
 ## Introduce yourself
 - Name / Current Job role
@@ -55,6 +56,24 @@ I don't coook often but when I do I like it when it is simpel to make and prepar
 
 [%step]
 Comments??
+
+
+## Spätzli recipe - Refactored
+
+*Ingredients* 
+
+[frame=none]
+[grid=none]
+|===
+| 2 Cups of flour | 1 Tsp salt | 1/2 Cup cream 
+| 3 Eggs | 1 Tbls butter
+|
+|===
+
+*Instructions*
+
+Mix the 3 eggs and the cream together until well blended. Add the flour and salt to the liquid stirring continuously to get a nice consistent batter. Let this mixture stand for 40 mins before continuing. Bring 3 cups of salted water to a boil. Place the sieve on top of the water and pour the batter on top of the sieve. Use the spatula to push the batter through the holes. Continue this until all the batter is used up. Stir the noodles in the boiling water so that they don't stick together for about 2 minutes. Drain all the excess water from the noodles. Now in a fry pan, melt the butter and fry the noodles until they have a light golden brown color. Serve with Zürich Geschnetzeltes. 
+
 
 ## Why Refactor?
 [%step]
@@ -391,7 +410,7 @@ class Customer {
 Customer, WikiPage, Account, AddressParser.
 * Avoid name that include Manager, Processor, Data or Info.
 * Normally, a class name should not be a verb
-* If your objects are value type objects, make them immutable
+* Strive for immutability
 
 ### Design the class Fraction
 * What are the variables in this class?
@@ -812,7 +831,10 @@ String getPieceToString(ChessPiece piece) {
 [quote, Robert Martin, "Clean Code"]
 The proper use of comments is to compensate for our **failure** to express ourself in code
 
-
+## Working with Inheritance
+* Tendency to move lots of behaviour up to the super class. This is fine to start but longer term, pollutes the intent of the superclass.
+* Quite often the answer lies in another concept (Class) that can be delegated too.
+* We will look at this later today
 
 ## Unit Tests - Really??? Why???
 [%step]

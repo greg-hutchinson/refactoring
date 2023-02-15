@@ -31,6 +31,8 @@ include::{partials}/what-is-refactoring.adoc[]
 [%notitle]
 ## Compare
 
+[frame=none]
+[grid=none]
 [%header,cols="a,a"]
 |====
 | Would you rather read this? | Or This? 
@@ -89,6 +91,7 @@ Remember - A blackJack is when there are only 2 cards and the total is 21
 
 
 ## Olivia and Emily
+
 [cols="a,a,s"]
 |====
 |image::olivia-in-dress.jpg[Livie,640,480]
@@ -105,10 +108,9 @@ I know - Shameless
 ## Refactoring - Why?
 image::little-dog-fence.jpeg[little-dog,640,480]
 
+[.smaller-bullet]
 * If the code was well designed to begin with, will we ever have to refactor it again?
-
 * When is the right time to refactor?
-
 * Isn't the cost of refactoring later the same as refactoring now?
 
 ## Source code and git

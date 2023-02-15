@@ -64,3 +64,15 @@
 .medium {
   font-size: 26pt;
 }
+
+.reveal div.smaller-bullet ul{
+
+  font-size: 22pt;
+}
+
+.reveal ul {
+  font-size: 24pt;
+  display: inline-block;
+  text-align: left;
+  margin: 0 0 0 1em; }
+

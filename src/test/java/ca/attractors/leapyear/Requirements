@@ -6,8 +6,4 @@ unless it is evenly divisibly by 100 ===> then it is not
 unless it is evenly div by 400 then it is
 otherwise it is not.   ???
 
-
-1992 --- true
-1993 --- false
-2000 - true
-2300 - false
+So what years should we test??

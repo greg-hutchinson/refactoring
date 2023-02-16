@@ -57,6 +57,7 @@ public boolean isBlackJack() {
 }
 ----
 |
+[%step]
 [source,java]
 ----
 public boolean isBlackJack() {
@@ -103,7 +104,10 @@ Remember - A blackJack is when there are only 2 cards and the total is 21
 You're right - absolutely nothing. 
 I know - Shameless
 
-## Pair Progamming - Why?
+## Pair Progamming - What are the benefits?
+[%step]
+image::pair-benefits.jpg[little-dog,640,480]
+
 
 ## Refactoring - Why?
 image::little-dog-fence.jpeg[little-dog,640,480]
@@ -113,7 +117,6 @@ image::little-dog-fence.jpeg[little-dog,640,480]
 * When is the right time to refactor?
 * Isn't the cost of refactoring later the same as refactoring now?
 
-## Source code and git
 
 ## JUnit - Unit Testing - Why?
 [%step]
@@ -126,7 +129,6 @@ For every class X in a code base, there is a corresponding class XTest that is a
 
 
 ## Leap Years
-
 
 
 To decide if a year is a leap year we use the following algorithm:

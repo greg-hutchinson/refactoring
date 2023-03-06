@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 public class DogTest {
     @Test
-    void refactor() {
+    void refactorIntroduceParameter() {
         Dog dog = new Dog();
         int lifeExpectancy = dog.getLifeExpectancy();
 
